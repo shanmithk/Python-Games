@@ -16,136 +16,154 @@ import pygame
 from dataclasses import dataclass
 from enum import Enum
 
-# Game settings
-PLAYER_SIZE = 20
-
-OBSTACLE_WIDTH = 500
-OBSTACLE_HEIGHT = 10
-
-
-GRAVITY = 1
-JUMP_VELOCITY = 40
-
-
-class Game:
-    screen_height: int = 600
-    screen_width: int = 800
-
-    def __init__(self):
-        # Initialize Pygame
-        pygame.init()
-        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-
-game = Game()
-
-class Colors(Enum):
+class Colors:
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     RED = (255, 0, 0)
 
 
-class Player:
+class Game:
 
-    size: int = 20
-    x: int = 100
-    y: int = game.screen_height - size
-    v_x: float = 0
-    v_y: float = 15
-    is_jumping: bool = False
+    running = True
+    gravity = .3
 
-    def __init__(self, x, y):
-        self.player = pygame.Rect(100, game.screen_height - self.size, self.size, self.size)
-        self.x = x
-        self.y = y
+    def __init__(self, width: int = 800, height: int = 600):
+       
+        pygame.init()
 
-    def jump(self):
-        if self.is_jumping is False:
-            self.y_velocity = -JUMP_VELOCITY
-            self.is_jumping = True
+        self.width = width
+        self.height = height
+
+        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.clock = pygame.time.Clock()
+
 
     def update(self):
-        self.y_velocity += GRAVITY
-        self.y += self.y_velocity
-        self.x += self.x_velocity
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
 
-        if self.y >= game.screen_height - PLAYER_SIZE:
-            self.y = game.screen_height  - PLAYER_SIZE
-            self.y_velocity = 0
+        pygame.display.flip()
+        self.clock.tick(60)
+
+    def draw(self, objs):
+        # Draw everything
+        self.screen.fill(Colors.WHITE)
+
+        for obj in objs:
+            obj.draw(self.screen)
+
+
+class Player(pygame.Rect):
+
+    is_jumping: bool = False
+
+    v_jump: float = 15 # Jump velocity
+
+    v_x: float = 0
+    v_y: float = 0
+
+    size: int = 0
+
+
+    def __init__(self, game: Game, 
+                 x: int = 100, y: int =  None,
+                 v_x: float = 0, v_y: float = 15,
+                 size: int = 20):
+        
+        self.game = game
+        self.size = size
+      
+        # Recalc Y since we don't know size in the default arg list. 
+        y = y if y is not None else game.height - size
+
+        self.v_x = v_x # X Velocity
+        self.v_y = v_y # Y Velocity
+
+        # Where are self.x and self.y? They are in the Rect class, which is the
+        # super class of the Player class.
+
+        super().__init__(x, y, self.size, self.size)
+
+    def jump(self):
+
+        if self.is_jumping is False:
+            self.v_y = -self.v_jump
+            self.is_jumping = True
+
+    def collide(self, obstacle):
+        if self.colliderect(obstacle):
+            self.v_y = -self.v_y
+
+            # did the player hit the top or bottom of the obstacle?
+            if self.y < obstacle.y:
+                print("Player hit the top of the obstacle")
+
+
+    def update(self):
+
+        # Continuously jump.
+        if self.is_jumping is False:
+            # Jumping means that the player is going up. The top of the 
+            # screen is y=0, and the bottom is y=SCREEN_HEIGHT. So, to go up,
+            # we need to have a negative y velocity
+            self.v_y = -self.v_jump
+            self.is_jumping = True
+
+        # If the player hits one side of the screen or the other, bounce the player
+        if player.x <= 0 or player.x >= self.game.width - self.game.height:
+            self.v_x = -self.v_x
+
+        # If the player hits the top of the screen, bounce the player
+        if player.y <= 0:
+            self.v_y = -self.v_y
+
+
+        # Update player position. Gravity is always pulling the player down,
+        # which is the positive y direction, so we add GRAVITY to the y velocity
+        # to make the player go up more slowly. Eventually, the player will have
+        # a positive y velocity, and gravity will pull the player down.
+        self.v_y += self.game.gravity
+        player.y += self.v_y
+        player.x += self.v_x
+
+        # If the player hits the ground, stop the player from falling.
+        # The player's position is measured from the top left corner, so the
+        # bottom of the player is player.y + PLAYER_SIZE. If the bottom of the
+        # player is greater than the height of the screen, the player is on the
+        # ground. So, set the player's y position to the bottom of the screen
+        # and stop the player from falling
+        if self.y >= game.height - self.size:
+            self.y = game.height  - self.size
+            self.v_y = 0
             self.is_jumping = False
 
     def draw(self, screen):
-        pygame.draw.rect(screen, Colors.BLACK.value, (self.x, self.y, self.size, self.size))
+        pygame.draw.rect(screen, Colors.BLACK, (self.x, self.y, self.size, self.size))
 
+class Obstacle(pygame.Rect):
 
+    def __init__(self, game: Game, width = 500, height = 10):
+        self.game = game
+        x  = (game.height - width) // 2 # Put the obstacle in the middle of the screen
+        y  = (game.width - height) // 2
 
+        super().__init__(self.x, self.y, self.width, self.height)
 
-o_left = (game.screen_height - OBSTACLE_WIDTH) // 2 # Put the obstacle in the middle of the screen
-o_top = (game.screen_width - OBSTACLE_HEIGHT) // 2
-obstacle = pygame.Rect(o_left, o_top, OBSTACLE_WIDTH, OBSTACLE_HEIGHT)
+    def draw(self, screen):
+        pygame.draw.rect(screen, Colors.RED, self)
 
+game = Game()
 
-# Main game loop
-running = True
-clock = pygame.time.Clock()
+player = Player(game)
+obstacle = Obstacle(game)
 
-while running:
+while game.running:
 
-    # Handle events, such as quitting the game
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    game.update()
+    player.update()
+    game.draw([player])
 
-    # Continuously jump. If the player is not jumping, may it jump
-    if is_jumping is False:
-        # Jumping means that the player is going up. The top of the 
-        # screen is y=0, and the bottom is y=SCREEN_HEIGHT. So, to go up,
-        # we need to have a negative y velocity
-        player_y_velocity = -JUMP_VELOCITY
-        is_jumping = True
-
-    # If the player hits one side of the screen or the other, bounce the player
-    if player.x <= 0 or player.x >= SCREEN_WIDTH - PLAYER_SIZE:
-        player_x_velocity = -player_x_velocity
-
-    # If the player hits the top of the screen, bounce the player
-    if player.y <= 0:
-        player_y_velocity = -player_y_velocity
-
-
-    # Update player position. Gravity is always pulling the player down,
-    # which is the positive y direction, so we add GRAVITY to the y velocity
-    # to make the player go up more slowly. Eventually, the player will have
-    # a positive y velocity, and gravity will pull the player down.
-    player_y_velocity += GRAVITY
-    player.y += player_y_velocity
-    player.x += player_x_velocity
-
-    # If the player hits the ground, stop the player from falling.
-    # The player's position is measured from the top left corner, so the
-    # bottom of the player is player.y + PLAYER_SIZE. If the bottom of the
-    # player is greater than the height of the screen, the player is on the
-    # ground. So, set the player's y position to the bottom of the screen
-    # and stop the player from falling
-    if player.y >= SCREEN_HEIGHT - PLAYER_SIZE:
-        player.y = SCREEN_HEIGHT - PLAYER_SIZE
-        player_y_velocity = 0
-        is_jumping = False
-
-    # If the player hits the obstacle, bounce the player
-    if player.colliderect(obstacle):
-        player_y_velocity = -player_y_velocity
-
-        # did the player hit the top or bottom of the obstacle?
-        if player.y < obstacle.y:
-            print("Player hit the top of the obstacle")
-       
-
-    # Draw everything
-    screen.fill(WHITE)
-    pygame.draw.rect(screen, BLACK, player)
-    pygame.draw.rect(screen, RED, obstacle)
-
-    pygame.display.flip()
-    clock.tick(60)
+    #player.collide(obstacle)
 
 pygame.quit()
