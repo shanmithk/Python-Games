@@ -18,8 +18,8 @@ import pygame
 pygame.init()
 
 # Screen dimensions
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 500
+SCREEN_HEIGHT = 500
 
 # Colors
 WHITE = (255, 255, 255)
@@ -29,12 +29,12 @@ RED=(255,0,0)
 # Game settings
 PLAYER_SIZE = 20
 
-OBSTACLE_WIDTH = 500
+OBSTACLE_WIDTH = 250
 OBSTACLE_HEIGHT = 10
 
 
-GRAVITY = 1
-JUMP_VELOCITY = 40
+GRAVITY = .4
+JUMP_VELOCITY = 20
 
 # Initialize screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -46,11 +46,9 @@ player_x_velocity = 15
 
 is_jumping = False
 
-
 o_left = (SCREEN_WIDTH - OBSTACLE_WIDTH) // 2 # Put the obstacle in the middle of the screen
 o_top = (SCREEN_HEIGHT - OBSTACLE_HEIGHT) // 2
 obstacle = pygame.Rect(o_left, o_top, OBSTACLE_WIDTH, OBSTACLE_HEIGHT)
-
 
 # Main game loop
 running = True

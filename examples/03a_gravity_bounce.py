@@ -1,7 +1,7 @@
 """
 Gravity bounce with x motion
 
-If we add X velocity, the player will bound around the screen. We will need to
+If we add X velocity, the player will bounce around the screen. We will need to
 add a check to see if the player hits the left or right side of the screen.
 
 """
@@ -11,8 +11,8 @@ import pygame
 pygame.init()
 
 # Screen dimensions
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 500
+SCREEN_HEIGHT = 500
 
 # Colors
 WHITE = (255, 255, 255)
@@ -21,7 +21,6 @@ RED=(255,0,0)
 
 # Game settings
 PLAYER_SIZE = 20
-
 
 
 GRAVITY = 1

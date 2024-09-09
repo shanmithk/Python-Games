@@ -31,7 +31,7 @@ class Game:
     update, drawing and collision methods that operate on multiple other
     objects, like the player and obstacles."""
     
-    def __init__(self, width: int = 800, height: int = 600, gravity: float = .3):
+    def __init__(self, width: int = 500, height: int = 500, gravity: float = .3):
 
         pygame.init()
 

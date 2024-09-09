@@ -12,18 +12,18 @@ import pygame
 pygame.init()
 
 # Screen dimensions
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 500
+SCREEN_HEIGHT = 500
 
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # Game settings
-PLAYER_SIZE = 50
+PLAYER_SIZE = 10
 
-GRAVITY = 1
-JUMP_VELOCITY = 30
+GRAVITY = .3
+JUMP_VELOCITY = 15
 
 # Initialize screen
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
