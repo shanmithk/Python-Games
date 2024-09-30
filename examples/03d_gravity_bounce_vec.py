@@ -1,10 +1,10 @@
 """
-Gravity bounce in Object Oriented style
+Gravity bounce using Vectors. 
 
-This version of the gravity bounce program uses an object oriented style to
-organize the code. The main game loop is in the Game class, and the player is
-a separate class. This makes the code easier to read and understand, and
-allows for more complex games with multiple objects.
+This version of the Gravity Bounce program uses Pygame's Vector2 class to handle
+the player's position and velocity. This makes the code more readable and
+understandable, and makes it easier to add more complex features to the game.
+
 
 """
 import pygame
@@ -114,6 +114,10 @@ class Player:
     
     # Location Fuctions
     
+    def at_top(self):
+        """Check if the player is at the top of the screen"""
+        return self.pos.y <= 0
+    
     def at_bottom(self):
         """Check if the player is at the bottom of the screen"""
         return self.pos.y >= self.game.settings.height - self.height
@@ -144,6 +148,9 @@ class Player:
             self.vel.y = 0
             self.is_jumping = False
 
+        if self.at_top() and self.going_up():
+            self.vel.y = -self.vel.y # Bounce off the top. 
+
         # If the player hits one side of the screen or the other, bounce the
         # player. we are also checking if the player has a velocity going farther
         # off the screeen, because we don't want to bounce the player if it's
@@ -159,10 +166,18 @@ class Player:
         # If the player is at the bottom, stop the player from falling and
         # stop the jump
         
+        # IMPORTANT! Notice that we don't also check "going_down()" here. This
+        # is because this code just limits how far off screen the player can go,
+        # and with the next velocity update, the player will bounce off the
+        # edge, so we don't need to check direction. 
+        
         if self.at_bottom():
             self.pos.y = self.game.settings.height - self.height
 
-        # Don't let the player go off the left  side of the screen
+        if self.at_top():
+            self.pos.y = 0
+
+        # Don't let the player go off the left side of the screen
         if self.at_left():
             self.pos.x = 0
   
