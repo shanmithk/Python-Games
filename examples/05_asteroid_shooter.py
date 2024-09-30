@@ -1,12 +1,9 @@
 """
-
 This really boring asteroids game doesn't have any asteroids! It's just a
-triangle that can shoot red missles. However, it does have some interesting
+triangle that can shoot red missiles. However, it does have some interesting
 features: it uses the Vector2 class from Pygame to handle the player's position
 and the projectiles' directions, and it uses the rotate method to rotate the
 triangle and the projectiles.
-
-
 """
 import pygame
 import math
@@ -40,13 +37,12 @@ FPS = 60
 
 # Function to draw the triangle
 def draw_triangle(surface: pygame.surface.Surface, position: pygame.Vector2, angle: float):
-    
     # Define the triangle's points relative to its center. This triangle is
-    # just pointing stright up. 
+    # just pointing straight up.
     points = [
-        pygame.Vector2(0, -TRIANGLE_SIZE), # top point
-        pygame.Vector2(-TRIANGLE_SIZE / 2, TRIANGLE_SIZE), # left side point
-        pygame.Vector2(TRIANGLE_SIZE / 2, TRIANGLE_SIZE) # right side point
+        pygame.Vector2(0, -TRIANGLE_SIZE),  # top point
+        pygame.Vector2(-TRIANGLE_SIZE / 2, TRIANGLE_SIZE),  # left side point
+        pygame.Vector2(TRIANGLE_SIZE / 2, TRIANGLE_SIZE)  # right side point
     ]
     
     # Rotate the points around the center to the desired angle, then move the
@@ -58,9 +54,9 @@ def draw_triangle(surface: pygame.surface.Surface, position: pygame.Vector2, ang
 # Function to move projectiles
 def move_projectiles():
     for projectile in projectiles[:]:
-        projectile["pos"] += projectile["direction"] * PROJECTILE_SPEED
+        projectile[0] += projectile[1] * PROJECTILE_SPEED
         # Remove projectiles that are out of bounds
-        if not (0 <= projectile["pos"].x <= WIDTH) or not (0 <= projectile["pos"].y <= HEIGHT):
+        if not (0 <= projectile[0].x <= WIDTH) or not (0 <= projectile[0].y <= HEIGHT):
             projectiles.remove(projectile)
 
 # Main loop
@@ -74,13 +70,7 @@ while running:
             if event.key == pygame.K_SPACE:
                 # Create a new projectile
                 direction = pygame.Vector2(0, -1).rotate(player_angle)
-                
-                # When we create a new projectile, 
-                projectile = {
-                    "pos": player_pos.copy(),
-                    "direction": direction
-                }
-                
+                projectile = [player_pos.copy(), direction]
                 projectiles.append(projectile)
 
     # Handle movement
@@ -99,7 +89,7 @@ while running:
 
     # Draw projectiles
     for projectile in projectiles:
-        pygame.draw.circle(screen, RED, (int(projectile["pos"].x), int(projectile["pos"].y)), 5)
+        pygame.draw.circle(screen, RED, (int(projectile[0].x), int(projectile[0].y)), 5)
 
     pygame.display.flip()
     clock.tick(FPS)
