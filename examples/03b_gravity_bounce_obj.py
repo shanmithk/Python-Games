@@ -8,7 +8,6 @@ allows for more complex games with multiple objects.
 
 """
 import pygame
-from dataclasses import dataclass
 
 
 class Colors:
@@ -18,7 +17,6 @@ class Colors:
     RED = (255, 0, 0)
 
 
-@dataclass
 class GameSettings:
     """Settings for the game"""
     width: int = 500
@@ -47,19 +45,26 @@ class Game:
         self.screen = pygame.display.set_mode((self.settings.width, self.settings.height))
         self.clock = pygame.time.Clock()
 
+        self.players = []
+
+    def add_player(self, player):
+        self.players.append(player)
+
+
     def run(self):
         """Main game loop"""
-        player = Player(self)
 
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     self.running = False
 
-            player.update()
-
             self.screen.fill(Colors.WHITE)
-            player.draw(self.screen)
+
+            for player in self.players:
+                player.update()
+                player.draw(self.screen)
+                
             pygame.display.flip()
             self.clock.tick(60)
 
@@ -124,4 +129,9 @@ class Player:
 
 settings = GameSettings()
 game = Game(settings)
+
+p1 = Player(game)
+game.add_player(p1)
+
+
 game.run()
