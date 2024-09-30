@@ -7,29 +7,44 @@ jump more realistic. The player goes up quickly, but falls slowly.
 
 """
 import pygame
+from dataclasses import dataclass
 
 # Initialize Pygame
 pygame.init()
 
-# Screen dimensions
-SCREEN_WIDTH = 500
-SCREEN_HEIGHT = 500
 
-# Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+# This is a data class, one way of storing settings and constants for a game.
+# We will create an instance of the data class, but since there is only one of
+# them, we could also use the class directly, like GameSettings.screen_width.
+# You can check that the instance has the same values as the class:
+#    settings = GameSettings()
+#    assert GameSettings.screen_width == settings.screen_width
+@dataclass
+class GameSettings:
+    """Class for keeping track of game settings."""
+    screen_width: int = 500
+    screen_height: int = 500
+    player_size: int = 10
+    player_x: int = 100 # Initial x position of the player
+    gravity: float = 0.3 # acelleration, the change in velocity per frame
+    jump_velocity: int = 15
+    white: tuple = (255, 255, 255)
+    black: tuple = (0, 0, 0)
+    tick_rate: int = 30 # Frames per second
 
-# Game settings
-PLAYER_SIZE = 10
+# Initialize game settings
+settings = GameSettings()
 
-GRAVITY = .3
-JUMP_VELOCITY = 15
+
 
 # Initialize screen
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((settings.screen_width, settings.screen_height))
 
 # Define player
-player = pygame.Rect(100, SCREEN_HEIGHT - PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE)
+player = pygame.Rect(settings.player_x, 
+                     settings.screen_height - settings.player_size, 
+                     settings.player_size, settings.player_size)
+
 player_y_velocity = 0
 is_jumping = False
 
@@ -44,21 +59,20 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Continuously jump. If the player is not jumping, may it jump
+    # Continuously jump. If the player is not jumping, initialize a new jump
     if is_jumping is False:
         # Jumping means that the player is going up. The top of the 
         # screen is y=0, and the bottom is y=SCREEN_HEIGHT. So, to go up,
         # we need to have a negative y velocity
-        player_y_velocity = -JUMP_VELOCITY
+        player_y_velocity = -settings.jump_velocity
         is_jumping = True
 
     # Update player position. Gravity is always pulling the player down,
     # which is the positive y direction, so we add GRAVITY to the y velocity
     # to make the player go up more slowly. Eventually, the player will have
     # a positive y velocity, and gravity will pull the player down.
-    player_y_velocity += GRAVITY
+    player_y_velocity += settings.gravity
     player.y += player_y_velocity
-
 
     # If the player hits the ground, stop the player from falling.
     # The player's position is measured from the top left corner, so the
@@ -66,16 +80,16 @@ while running:
     # player is greater than the height of the screen, the player is on the
     # ground. So, set the player's y position to the bottom of the screen
     # and stop the player from falling
-    if player.y >= SCREEN_HEIGHT - PLAYER_SIZE:
-        player.y = SCREEN_HEIGHT - PLAYER_SIZE
+    if player.y >= settings.screen_height - settings.player_size:
+        player.y = settings.screen_height - settings.player_size
         player_y_velocity = 0
         is_jumping = False
 
     # Draw everything
-    screen.fill(WHITE)
-    pygame.draw.rect(screen, BLACK, player)
+    screen.fill(settings.white)
+    pygame.draw.rect(screen, settings.black, player)
 
     pygame.display.flip()
-    clock.tick(30)
+    clock.tick(settings.tick_rate)
 
 pygame.quit()
