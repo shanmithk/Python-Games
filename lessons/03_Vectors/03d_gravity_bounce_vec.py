@@ -16,8 +16,10 @@ class Colors:
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     RED = (255, 0, 0)
+    LINE_COLOR = (0, 255, 0)
     PLAYER_COLOR = (0, 0, 255)
     BACKGROUND_COLOR = (255, 255, 255)
+
 
 
 @dataclass
@@ -26,14 +28,20 @@ class GameSettings:
     width: int = 500
     height: int = 500
     gravity: float = 0.3
+    drag: float = 0.02
     player_start_x: int = 100
     player_start_y: int = None
     player_v_y: float = 0  # Initial y velocity
-    player_v_x: float = 4  # Initial x velocity
+    player_v_x: float = 0  # Initial x velocity
     player_width: int = 20
     player_height: int = 20
     player_jump_velocity: float = 15
+    
     frame_rate: int = 15
+
+    ANGLE_CHANGE = 3
+    LENGTH_CHANGE = 5
+    INITIAL_LENGTH = 100
 
 
 class Game:
@@ -53,6 +61,8 @@ class Game:
         # Turn Gravity into a vector
         self.gravity = pygame.Vector2(0, self.settings.gravity)
 
+
+
     def run(self):
         """Main game loop"""
         player = Player(self)
@@ -64,7 +74,7 @@ class Game:
 
             player.update()
 
-            self.screen.fill(Colors.BACKGROUND_COLOR)
+            self.screen.fill(Colors.WHITE)
             player.draw(self.screen)
             pygame.display.flip()
             self.clock.tick(self.settings.frame_rate)
@@ -77,19 +87,23 @@ class Player:
 
     def __init__(self, game: Game):
         self.game = game
-        settings = self.game.settings
+        self.settings = game.settings
 
-        self.width = settings.player_width
-        self.height = settings.player_height
+        self.width = self.settings.player_width
+        self.height = self.settings.player_height
     
-        self.v_jump = pygame.Vector2(0, -settings.player_jump_velocity)
+        self.v_jump = pygame.Vector2(0, -self.settings.player_jump_velocity)
+    
+        self.is_jumping = False
 
-        self.pos = pygame.Vector2(settings.player_start_x, 
-                                  settings.player_start_y if settings.player_start_y is not None else settings.height - self.height)
+        self.pos = pygame.Vector2(self.settings.player_start_x, 
+                                  self.settings.player_start_y if self.settings.player_start_y is not None else self.settings.height - self.height)
         
-        self.vel = pygame.Vector2(settings.player_v_x, settings.player_v_y)  # Velocity vector
+        self.vel = pygame.Vector2(self.settings.player_v_x, self.settings.player_v_y)  # Velocity vector
 
+        self.drag = pygame.Vector2(self.settings.drag, self.settings.drag)  # Drag vector 
 
+        self.thrust = pygame.Vector2(10, -10)  # Thrust vector
 
     # Direction functions. IMPORTANT! Using these functions ) isn't really
     # necessary, but it makes the code more readable. You could just use
@@ -138,14 +152,39 @@ class Player:
         self.update_jump()
         self.update_v()
         self.update_pos()
+        self.update_input()
         
+    def update_input(self):
+        
+        keys = pygame.key.get_pressed()
+        # Change the angle with left and right arrows
+        
+
+        if keys[pygame.K_LEFT]:
+            self.thrust = self.thrust.rotate(-self.game.settings.ANGLE_CHANGE)
+        if keys[pygame.K_RIGHT]:
+            self.thrust = self.thrust.rotate(self.game.settings.ANGLE_CHANGE)
+        
+        # Change the length of the direction vector with up and down arrows
+        if keys[pygame.K_UP]:
+            self.thrust.scale_to_length(self.thrust.length() + self.settings.LENGTH_CHANGE)
+        
+        if keys[pygame.K_DOWN]:
+            new_length = max(10, self.thrust.length() - self.game.settings.LENGTH_CHANGE)  # Prevent length from going below 10
+            self.thrust.scale_to_length(new_length)
+    
+        if keys[pygame.K_SPACE]:
+            print("Jump!")
+            self.vel += self.thrust
+            
     def update_v(self):
         """Update the player's velocity based on gravity and bounce on edges"""
          
         self.vel += self.game.gravity  # Add gravity to the velocity
 
-        if self.at_bottom() and self.going_down():
+        if self.at_bottom() and self.going_down() :
             self.vel.y = 0
+
 
         if self.at_top() and self.going_up():
             self.vel.y = -self.vel.y # Bounce off the top. 
@@ -157,6 +196,8 @@ class Player:
         
         if (self.at_left() and self.going_left() ) or ( self.at_right() and self.going_right()):
             self.vel.x = -self.vel.x
+
+        self.vel -= (self.vel * self.game.settings.drag)  # Apply drag to the velocity
             
     def update_pos(self):
         """Update the player's position based on velocity"""
@@ -164,6 +205,11 @@ class Player:
 
         # If the player is at the bottom, stop the player from falling and
         # stop the jump
+        
+        # IMPORTANT! Notice that we don't also check "going_down()" here. This
+        # is because this code just limits how far off screen the player can go,
+        # and with the next velocity update, the player will bounce off the
+        # edge, so we don't need to check direction. 
         
         if self.at_bottom():
             self.pos.y = self.game.settings.height - self.height
@@ -182,14 +228,20 @@ class Player:
     def update_jump(self):
         """Handle the player's jumping logic"""
         
-        # Notice that we've gotten rid of self.is_jumping, because we can just
-        # check if the player is at the bottom. 
-        if self.at_bottom():
-            self.vel += self.v_jump
-         
+        #if not self.is_jumping and self.at_bottom():
+        #    self.vel += self.v_jump
+        #    self.is_jumping = True
+        
+        pass
 
     def draw(self, screen):
-        pygame.draw.rect(screen, Colors.PLAYER_COLOR, (self.pos.x, self.pos.y, self.width, self.height))
+        
+        line_start = self.pos + pygame.Vector2(self.width // 2, self.height // 2)   
+        line_end = line_start + self.thrust*5
+        
+        pygame.draw.line(screen, Colors.LINE_COLOR, line_start, line_end, 2)
+        
+        pygame.draw.rect(screen, Colors.BLACK, (self.pos.x, self.pos.y, self.width, self.height))
 
 
 settings = GameSettings()

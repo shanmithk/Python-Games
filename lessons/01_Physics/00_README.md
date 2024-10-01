@@ -82,9 +82,9 @@ if player.y < 0 or player.y > screen_height:
 3. Change the program so that the player can jump to the left or right by pressing
    the `A` or `D` keys.
 4. Change the program so the player's velocity is reduced by a little bit each
-   time step. When the player's x or y velocity is less than 0.1, set it to
-   zero. This will make the player slow down and stop. IF the Players velocity
-   is zero, the player can jump again. 
+   time step. ( areodynamic wind drag ) When the player's x or y velocity is
+   less than 0.1, set it to zero. This will make the player slow down and stop.
+   IF the Players velocity is zero, the player can jump again. 
 
 
 

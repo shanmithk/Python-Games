@@ -119,6 +119,7 @@ class Player:
 
     def update_jump(self):
         """Handle the player's jumping logic"""
+        
         if not self.is_jumping:
             self.v_y = -self.v_jump
             self.is_jumping = True

@@ -17,8 +17,8 @@ pygame.init()
 # Settings class
 class Settings:
     """A class to store all settings for the game."""
-    SCREEN_WIDTH = 400
-    SCREEN_HEIGHT = 300
+    SCREEN_WIDTH = 800
+    SCREEN_HEIGHT = 600
     PLAYER_SIZE = 20
     LINE_COLOR = (0, 255, 0)
     PLAYER_COLOR = (0, 0, 255)
@@ -58,11 +58,13 @@ class Player:
         # Draw player (as a square)
         pygame.draw.rect(screen, Settings.PLAYER_COLOR, (self.position.x - Settings.PLAYER_SIZE // 2, self.position.y - Settings.PLAYER_SIZE // 2, Settings.PLAYER_SIZE, Settings.PLAYER_SIZE))
         
-        # Calculate the end point of the direction vector (line)
+        # Calculate the end point of the direction vector (line). Notice that we can just add the
+        # direction vector to the position vector to get the end point.
         end_position = self.position + self.direction_vector
         
         # Draw direction vector (line)
         if show_line:
+            # The drawing functions can take vectors as arguments
             pygame.draw.line(screen, Settings.LINE_COLOR, self.position, end_position, 2)
         
 
@@ -110,9 +112,11 @@ def main():
         # Change the length of the direction vector with up and down arrows
         if keys[pygame.K_UP]:
             player.direction_vector.scale_to_length(player.direction_vector.length() + Settings.LENGTH_CHANGE)
+        
         if keys[pygame.K_DOWN]:
             new_length = max(10, player.direction_vector.length() - Settings.LENGTH_CHANGE)  # Prevent length from going below 10
             player.direction_vector.scale_to_length(new_length)
+        
         # Move the player when spacebar is pressed
         
         if keys[pygame.K_SPACE]:
