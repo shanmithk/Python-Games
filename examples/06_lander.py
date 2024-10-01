@@ -23,8 +23,9 @@ lander_rotation_speed = 5
 
 # Load and scale the lander image
 lander_image = pygame.image.load(assets/'alien1.gif')
-lander_image = pygame.transform.scale(lander_image, (lander_w, lander_h))
 
+# Scale the image to make it a given height and width
+lander_image = pygame.transform.scale(lander_image, (lander_w, lander_h))
 
 gravity = pygame.Vector2(0, 0.1)
 
@@ -33,10 +34,12 @@ clock = pygame.time.Clock()
 FPS = 60
 
 # Function to draw the rotated lander
-def draw_lander(surface, position, angle):
+def draw_lander(screen, position, angle):
+
+    # Rotate the lander image.     
     rotated_image = pygame.transform.rotate(lander_image, -angle)
     rotated_rect = rotated_image.get_rect(center=position)
-    surface.blit(rotated_image, rotated_rect.topleft)
+    screen.blit(rotated_image, rotated_rect.topleft)
 
 # Main loop
 running = True

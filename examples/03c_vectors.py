@@ -114,8 +114,7 @@ def main():
             player.direction_vector.scale_to_length(player.direction_vector.length() + Settings.LENGTH_CHANGE)
         
         if keys[pygame.K_DOWN]:
-            new_length = max(10, player.direction_vector.length() - Settings.LENGTH_CHANGE)  # Prevent length from going below 10
-            player.direction_vector.scale_to_length(new_length)
+            player.direction_vector.scale_to_length(player.direction_vector.length() - Settings.LENGTH_CHANGE)
         
         # Move the player when spacebar is pressed
         

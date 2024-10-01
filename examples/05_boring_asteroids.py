@@ -1,9 +1,5 @@
 """
-This really boring asteroids game doesn't have any asteroids! It's just a
-triangle that can shoot red missiles. However, it does have some interesting
-features: it uses the Vector2 class from Pygame to handle the player's position
-and the projectiles' directions, and it uses the rotate method to rotate the
-triangle and the projectiles.
+
 """
 import pygame
 import math
