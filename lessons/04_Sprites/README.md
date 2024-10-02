@@ -186,4 +186,38 @@ Make seperate functions for each of the things you are updating in your spaceshi
         super().update() # Don't for get this part!
 ```
 
+## Assignment 2
 
+Add some images to the spaceship and the projectiles. 
+
+
+1. First set the assets directory, in code at the top of your file.
+
+```python
+from pathlib import Path
+
+assets = Path(__file__).parent.parent / "examples" / "assets"
+
+```
+
+2. Create a subclass of Spaceship that will load an image for the spaceship. 
+
+```python
+class AlienSpaceship(Spaceship):
+    
+    def create_spaceship_image(self):
+        """Creates the spaceship shape as a surface."""
+        
+        return pygame.image.load(assets/'alien1.gif')
+        
+```
+
+3. In the end of the file, create a new instance of the AlienSpaceship class, instead of the Spaceship class. 
+4. Run the program. 
+
+You spaceship should have turned from a triangle to a flying saucer! The
+`AlienSpaceship` class is a subclass of the `Spaceship` class, so it inherits
+all the methods and attributes of the `Spaceship` class. The only difference is
+that the `create_spaceship_image()` method is overridden to load an image from a
+file.   It's like we copied the `Spaceship` class and changed only the
+`create_spaceship_image()` method.
