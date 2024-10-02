@@ -36,10 +36,7 @@ def main():
     
     while running:
         
-        # This will clear the screen by filling it 
-        # with the background color. If we didn't do this, 
-        # the square would leave a trail behind it.
-        screen.fill(BACKGROUND_COLOR)
+
         
         # Event handling
         for event in pygame.event.get():
@@ -65,6 +62,11 @@ def main():
         # Prevent the square from going off the screen
         square_x = max(0, min(SCREEN_WIDTH - SQUARE_SIZE, square_x))
         square_y = max(0, min(SCREEN_HEIGHT - SQUARE_SIZE, square_y))
+
+        # This will clear the screen by filling it 
+        # with the background color. If we didn't do this, 
+        # the square would leave a trail behind it.
+        screen.fill(BACKGROUND_COLOR)
 
         # Draw the square
         pygame.draw.rect(screen, SQUARE_COLOR, (square_x, square_y, SQUARE_SIZE, SQUARE_SIZE))

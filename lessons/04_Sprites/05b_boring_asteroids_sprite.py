@@ -3,7 +3,7 @@ import math
 
 from pathlib import Path
 
-assets = Path(__file__).parent / "images"
+assets = Path(__file__).parent.parent.parent / "examples" / "assets"
 
 class Settings:
     """Class to store game configuration."""
@@ -190,10 +190,11 @@ class Game:
 
     def __init__(self, settings):
         pygame.init()
+        pygame.key.set_repeat(1250, 1250)
+        
         self.settings = settings
-        self.screen = pygame.display.set_mode(
-            (self.settings.width, self.settings.height)
-        )
+        self.screen = pygame.display.set_mode((self.settings.width, self.settings.height))
+        
 
         pygame.display.set_caption("Really Boring Asteroids")
 
@@ -233,6 +234,9 @@ class Game:
 
     def run(self):
         """Main Loop for the game."""
+        
+       
+        
         while self.running:
             self.handle_events()
             self.update()

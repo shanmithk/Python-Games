@@ -196,7 +196,8 @@ Add some images to the spaceship and the projectiles.
 ```python
 from pathlib import Path
 
-assets = Path(__file__).parent.parent / "examples" / "assets"
+
+assets = Path(__file__).parent.parent.parent / "examples" / "assets"
 
 ```
 
