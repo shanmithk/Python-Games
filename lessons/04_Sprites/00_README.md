@@ -222,3 +222,19 @@ all the methods and attributes of the `Spaceship` class. The only difference is
 that the `create_spaceship_image()` method is overridden to load an image from a
 file.   It's like we copied the `Spaceship` class and changed only the
 `create_spaceship_image()` method.
+
+
+## Assignment 3
+
+1. Make a copy of your program from Assignment 2 to a new file. 
+2. Add a boundary check to the spaceship so that it will wrap around the screen
+   when it reaches the edge. When it reaches the left edge of the screen, it
+   should appear on the right edge, and when it reaches the top edge, it should
+   appear on the bottom edge. Review the gravity bounce programs for clues.
+3. Add a boundary check to the projectiles so that they are removed from the
+   game when they go off the screen. 
+
+
+For (3), you will need to call `self.kill()` method in the `Projectile` class.
+The `kill()` method is a method of the `Sprite` class that removes the sprite
+from all sprite groups, so it will no longer be updated or drawn. 

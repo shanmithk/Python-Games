@@ -80,8 +80,8 @@ while running:
     # player is greater than the height of the screen, the player is on the
     # ground. So, set the player's y position to the bottom of the screen
     # and stop the player from falling
-    if player.y >= settings.screen_height - settings.player_size:
-        player.y = settings.screen_height - settings.player_size
+    if player.bottom >= settings.screen_height:
+        player.bottom = settings.screen_height 
         player_y_velocity = 0
         is_jumping = False
 
