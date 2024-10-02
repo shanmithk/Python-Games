@@ -160,4 +160,30 @@ the `draw()` method of each sprite in the group is called. That's why there is n
 need to call the `draw()` method of the spaceship and the projectiles in the
 `Game` class; all of that is handled by the sprite group.
 
+## Assignment 1
+
+1. Copy the `examples/05b_boring_asteroids_sprite.py` program to a new file in
+   this directoty.
+2. Modify the `Spaceship` class so that the spaceship can move forward when the
+   up arrow key is pressed. The spaceship should move in the direction it is
+   facing. You can use the `pygame.Vector2` class to represent the position and
+   velocity of the spaceship.
+
+
+For (2), you will need to add a `velocity` attribute to the `Spaceship` class. Review
+past programs for clues. 
+
+Make seperate functions for each of the things you are updating in your spaceship. For instance, your
+`update()` method might look like this:
+
+```python
+    def update(self):
+        
+        self.handle_input()
+        self.update_angle()
+        self.update_position()
+
+        super().update() # Don't for get this part!
+```
+
 
