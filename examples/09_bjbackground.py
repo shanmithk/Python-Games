@@ -29,7 +29,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Advanced Endless Runner")
 
 # Load background image
-background_image = pygame.image.load(d/'assets/background.png')
+background_image = pygame.image.load(d/'assets/background.png').convert()
 background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 background_rect = background_image.get_rect()
 
@@ -89,22 +89,21 @@ while running:
         if player.colliderect(obstacle):
             running = False
 
-    # Scroll background
+    
+    # Draw the background
     background_rect.x -= BACKGROUND_SCROLL_SPEED
     if background_rect.x <= -SCREEN_WIDTH:
         background_rect.x = 0
 
-    # Update score
-    score += 1
-
-    # Draw everything
     screen.blit(background_image, background_rect)
     screen.blit(background_image, (background_rect.x + SCREEN_WIDTH, background_rect.y))
+    
     pygame.draw.rect(screen, BLACK, player)
     for obstacle in obstacles:
         pygame.draw.rect(screen, BLACK, obstacle)
 
     # Draw score
+    score += 1
     score_text = font.render(f"Score: {score}", True, BLACK)
     screen.blit(score_text, (10, 10))
 
