@@ -3,7 +3,7 @@ Dino Jump
 
 Use the arrow keys to move the blue square up and down to avoid the black
 obstacles. The game should end when the player collides with an obstacle ...
-but it does not. 
+but it does not. It's a work in progress, and you'll have to finish it. 
 
 """
 import pygame

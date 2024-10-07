@@ -1,3 +1,7 @@
+"""
+Example of how to draw a space invaders enemy grid. 
+
+"""
 import pygame
 
 # Initialize Pygame
