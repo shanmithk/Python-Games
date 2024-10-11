@@ -37,7 +37,6 @@ def main():
     while running:
         
 
-        
         # Event handling
         for event in pygame.event.get():
             

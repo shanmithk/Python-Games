@@ -45,14 +45,6 @@ is [The Ultimate Introduction to PyGame](https://youtu.be/AY9MnQ4x3zk?si=HFtptJF
 Since you will likely be working in a Codespace, you will need to open a virtual screen to run your Pygame programs.
 To do this [floow these instuctions](https://curriculum.jointheleague.org/howto/python_codespaces.html#open-a-virtual-screen-on-the-web)
 
-## Assignment 1
-
-1. Copy `examples/01-move.py` into this directory.
-2. Run the program and see what it does. Use the arrow keys to move the square around the screen.
-3. Read the code and try to understand how it works.
-4. Read the Pygame documentation for [pygame.draw](https://www.pygame.org/docs/ref/draw.html) and change the program to draw a circle. 
-5. Read the documentation for [pygame.key](https://www.pygame.org/docs/ref/key.html) and change the program to move the circle with the `W`, `A`, `S`, and `D` keys.
-
 
 ## Important Tips
 
@@ -75,7 +67,7 @@ like:
 
 ![Debugger](https://images.jointheleague.org/vscode/debug_bar.png)
 
-The red square will stop your program, and the creen reverse circle wil restart
+The red square will stop your program, and the green reverse circle wil restart
 it. The other buttons will let you step through the program.
 
 

@@ -1,10 +1,30 @@
-# Physics
+# Motion and Physics
 
 Most of the games we will be writing have some physics, which is the motion of
 objects in the game that should look realistic, like jumping or falling. Pygame
 has some built in physics functions, but we will also need to write our own
 physics code. The most basic physics are for moving objects around the screen,
 so we will start there. 
+
+## Basic Motion
+
+Let's start with a simple program that moves a square around the screen, just to
+see how it works. 
+
+
+## Assignment 1
+
+1. Copy `examples/01a-move.py` into this directory.
+2. Run the program and see what it does. Use the arrow keys to move the square
+   around the screen.
+3. Read the code and try to understand how it works.
+4. Read the Pygame documentation for
+   [pygame.draw](https://www.pygame.org/docs/ref/draw.html) and change the
+   program to draw a circle. 
+5. Read the documentation for
+   [pygame.key](https://www.pygame.org/docs/ref/key.html) and change the program
+   to move the circle with the `W`, `A`, `S`, and `D` keys.
+
 
 ## Position, Velocity and Acceleration
 
@@ -47,17 +67,18 @@ for i in range(100):
 
 That's it! We have a car that starts moving slowly and speeds up.
 
-## Assignment 1
-
-For assignment, read and then run `01_no_acceleration.py` in the lessons directory, 
-then `02_acceleration.py`. Read the comments to understand how the programs work and notice 
-the difference in the motion. 
-
 ## Assignment 2
 
-1. Copy `examples/02_gravity.py` into this directory, as `03_gravity.py`
-2. Review your previous `01_move.py` program to studey how keystrokes work in Pygame.
-3. Change the `02_gravity.py` program so that instead of always jumping, the
+For assignment, read and then run `examples/01b_no_acceleration.py` in the lessons directory, 
+then `examples/01c_acceleration.py`. Read the comments to understand how the programs work and notice 
+the difference in the motion. 
+
+## Assignment 3
+
+1. Copy `examples/01d_gravity.py` into this directory.
+2. Review your previous `01a_move.py` program to study how keystrokes work in
+   Pygame.
+3. Change the `01d_gravity.py` program so that instead of always jumping, the
    player jumps when the `space` key is pressed.
 4. Change the program so that the player can jump higher by using the Control
    key along with the space. 
@@ -83,7 +104,7 @@ if player.y < 0 or player.y > screen_height:
 
 ## Assignment 2
 
-1. Copy `examples/03a_gravity_bounce.py` into this directory.
+1. Copy `examples/01e_gravity_bounce.py` into this directory.
 2. Change the program so that the player doesn't always jump. Instead, the player
    jumps when the `space` key is pressed.
 3. Change the program so that the player can jump to the left or right by pressing
