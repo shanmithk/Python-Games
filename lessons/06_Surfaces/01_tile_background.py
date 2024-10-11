@@ -37,7 +37,7 @@ def make_tiled_bg(screen, bg_file):
         
     return image
 
-background = make_tiled_bg(screen, assets/'background.gif')
+background = make_tiled_bg(screen, assets/'background_tile.gif')
 
 # Main loop
 running = True

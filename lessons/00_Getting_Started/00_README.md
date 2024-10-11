@@ -45,7 +45,7 @@ is [The Ultimate Introduction to PyGame](https://youtu.be/AY9MnQ4x3zk?si=HFtptJF
 Since you will likely be working in a Codespace, you will need to open a virtual screen to run your Pygame programs.
 To do this [floow these instuctions](https://curriculum.jointheleague.org/howto/python_codespaces.html#open-a-virtual-screen-on-the-web)
 
-## Assignment
+## Assignment 1
 
 1. Copy `examples/01-move.py` into this directory.
 2. Run the program and see what it does. Use the arrow keys to move the square around the screen.

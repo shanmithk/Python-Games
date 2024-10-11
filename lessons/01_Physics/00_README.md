@@ -1,24 +1,26 @@
 # Physics
 
-Most of the games we will be writing have some physics, which is the motion of objects in the
-game that should look realistic, like jumping or falling. Pygame has some built in physics
-functions, but we will also need to write our own physics code. THe most basic
-physics are for moving objects around the screen, and we will start with that.
+Most of the games we will be writing have some physics, which is the motion of
+objects in the game that should look realistic, like jumping or falling. Pygame
+has some built in physics functions, but we will also need to write our own
+physics code. The most basic physics are for moving objects around the screen,
+so we will start there. 
 
 ## Position, Velocity and Acceleration
 
-Position is where a object is on the screen, and velocity is how fast it is moving. Because we 
-are writing 2D games, our position and speeds will have x and y components. 
+Position is where a object is on the screen, and velocity is how fast it is
+moving. Because we are writing 2D games, our position and speeds will have x and
+y components. That is, all of th emostion of an object on the screen can be described
+by its motion left and right, the x direction, and up and down, the y direction.
 
-Accelleration is a change in velocity, which is a change in speed or direction.
-You acellerate when you go faster or slower. It doesn't look right if an object
+Acceleration is a change in velocity, which is a change in speed or direction.
+You accelerate when you go faster or slower. It doesn't look right if an object
 just stops moving or starts moving full speed from a stop; to make it look
-realistic,  it has to speed up or slow down a bit at a time. 
+realistic, it has to speed up or slow down a bit at a time. 
 
 Fortunately, this is really easy to do. Suppose we want to move our car to the right, 
 which is the positive x direction. We can write a function that adds a little bit to the
 x position each time it is called, and the car will move to the right. 
-
 
 Let's start with no acelleration. This car just immedaitely starts moving at full speed, 
 10 pixels each time step. 
@@ -31,7 +33,7 @@ for i in range(100):
 
 ```
 
-Now, let's add some acelleration. We will add a little bit to the speed each time step. 
+Now, let's add some aceleration. We will add a little bit to the speed each time step. 
 ```python
 
 acelleration = .1
@@ -45,10 +47,15 @@ for i in range(100):
 
 That's it! We have a car that starts moving slowly and speeds up.
 
-
 ## Assignment 1
 
-1. Copy `examples/02_gravity.py` into this directory.
+For assignment, read and then run `01_no_acceleration.py` in the lessons directory, 
+then `02_acceleration.py`. Read the comments to understand how the programs work and notice 
+the difference in the motion. 
+
+## Assignment 2
+
+1. Copy `examples/02_gravity.py` into this directory, as `03_gravity.py`
 2. Review your previous `01_move.py` program to studey how keystrokes work in Pygame.
 3. Change the `02_gravity.py` program so that instead of always jumping, the
    player jumps when the `space` key is pressed.
