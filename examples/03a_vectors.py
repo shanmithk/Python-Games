@@ -99,28 +99,34 @@ def main():
     player = Player(Settings.SCREEN_WIDTH // 2, Settings.SCREEN_HEIGHT // 2)
     running = True
     
-    pygame.key.set_repeat(50)
+    pygame.key.set_repeat(50, 50)
     
+    key_limit = 0
     while running:
+        key_limit += 1
+        
         screen.fill(Settings.BACKGROUND_COLOR)
         
+        keys = pygame.key.get_pressed()
+        
+        if key_limit%3 == 0: # Limit frequency of key presses so the user can set exact angles
+            if keys[pygame.K_LEFT]:
+                player.direction_vector = player.direction_vector.rotate(-Settings.ANGLE_CHANGE)
+            elif keys[pygame.K_RIGHT]:
+                player.direction_vector = player.direction_vector.rotate(Settings.ANGLE_CHANGE)
+                
+        if keys[pygame.K_UP]:
+            player.direction_vector.scale_to_length(player.direction_vector.length() + Settings.LENGTH_CHANGE)
+        elif keys[pygame.K_DOWN]:
+            player.direction_vector.scale_to_length(player.direction_vector.length() - Settings.LENGTH_CHANGE)
+        elif keys[pygame.K_SPACE]:
+            player.move()
+                
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN:
-               
-                if event.key == pygame.K_LEFT:
-                    player.direction_vector = player.direction_vector.rotate(-Settings.ANGLE_CHANGE)
-                elif event.key == pygame.K_RIGHT:
-                    player.direction_vector = player.direction_vector.rotate(Settings.ANGLE_CHANGE)
-                elif event.key == pygame.K_UP:
-                    player.direction_vector.scale_to_length(player.direction_vector.length() + Settings.LENGTH_CHANGE)
-                elif event.key == pygame.K_DOWN:
-                    player.direction_vector.scale_to_length(player.direction_vector.length() - Settings.LENGTH_CHANGE)
-                elif event.key == pygame.K_SPACE:
-                    player.move()
-
-      
+                
         # Draw the player and the direction vector
         player.draw()
 

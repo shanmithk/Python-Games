@@ -1,10 +1,11 @@
 # Vector Example Program
 
+( Use "Open Preview" to see the images in this document. )
+
 The program `examples/03a_vectors.py` is a simple program that demonstrates how
 to use vectors to move an object around the screen.
 
 ![Vector Example](images/vector_example.png)
-
 
 You can move the green line around the player with the left and right arrow
 keys. The up and down arrow keys will make the line longer or shorter. When you
