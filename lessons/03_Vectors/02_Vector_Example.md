@@ -1,6 +1,6 @@
 # Vector Example Program
 
-The program `examples/03c_vectors.py` is a simple program that demonstrates how
+The program `examples/03a_vectors.py` is a simple program that demonstrates how
 to use vectors to move an object around the screen.
 
 ![Vector Example](images/vector_example.png)
@@ -11,9 +11,20 @@ keys. The up and down arrow keys will make the line longer or shorter. When you
 hit the space bar, the player will move along the green line to the new
 position.
 
-In this program, both the line and the player are represented with a vector. Read the
-program to see how we use vectors to move the player along the line.
+As you play with the program and move the line around, notice the replationship
+between the X and Y components of vector and the direction and magnitude of the
+line. For instance: 
 
+* If the direction is a 45° angle, the X and Y components of the vector
+  will be equal.
+* If the direction is 90° or -90°, the X component will be zero, and the Y
+  component will be the magnitude of the vector.
+* If the direction is 0° or 180° / -180°, the Y component will be zero, and the
+  X component will be the magnitude of the vector.
+* At 30°, the magnitude ( length ) of the vector will be twice the Y component,
+  and at 60°, the magnitude will be twice the X component.
+  
+After experimenting with the program, read the cod to figure out how it works. 
 
 ## Gravity Bounce Update
 
