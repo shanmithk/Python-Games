@@ -2,10 +2,10 @@
 
 ( Use "Open Preview" to see the images in this document. )
 
-The program `examples/03a_vectors.py` is a simple program that demonstrates how
+The program `03_vectors.py` is a simple program that demonstrates how
 to use vectors to move an object around the screen.
 
-![Vector Example](images/vector_example.png)
+![Vector Example](99_images/vector_example.png)
 
 You can move the green line around the player with the left and right arrow
 keys. The up and down arrow keys will make the line longer or shorter. When you
@@ -29,14 +29,14 @@ After experimenting with the program, read the cod to figure out how it works.
 
 ## Gravity Bounce Update
 
-The program `examples/03d_gravity_bounce_vec.py` is an update to the gravity
+The program `04_gravity_bounce_vec.py` is an update to the gravity
 bounce program that uses vectors to represent the player's position and
 velocity.
 
 
 ## Assignment 1
 
-1. Copy `examples/03d_gravity_bounce_vec.py` into this directory.
+1. Copy `04_gravity_bounce_vec.py` into this directory.
 2. Add drag to the program, like we did in a earlier assignment, but use a
    vector to represent the drag. Subtract the drag vector from the player's
    velocity each time step to make the player slow down. 
@@ -65,7 +65,7 @@ when the player jumps, rather than subtracting a little bit every time step.
 3. Add a method to the Player, `update_input(self)` that will read the keys.
    Call this method along with the other update functions in `update()` If the
    player presses the space bar, add the thrust vector to the player's velocity.
-   Read the code in `examples/03c_vectors.py` to see how get the keys.
+   Read the code in `03_vectors.py` to see how get the keys.
 
 ### Things to try
 
@@ -76,7 +76,7 @@ when the player jumps, rather than subtracting a little bit every time step.
 ## Assignment 3
 
 Let's update the program to allow the user to jump in any direction. For this,
-we will use the example from   `examples/03c_vectors.py`. In the example
+we will use the example from   `03_vectors.py`. In the example
 program, the player moves along the green line when the space bar is pressed.
 Instead of moving along the line, we will add a thrust vector to the player's
 velocity when the space bar is pressed. Adding thrust will work just like drag,
@@ -87,11 +87,11 @@ subtracting it.
    keep your existing work.
 2. Add a line that represents the thrust vector, which you will draw on the
    screen to show the player which way they are jumping, just like in the
-   `03c_vectors.py` example.
+   `03_vectors.py` example.
 3. Update your `update_input()` method to read the arrow keys and adjust the
    thrust vector. You can use the left and right arrow keys to change the
    direction of the thrust vector, and the up and down arrow keys to change the
-   length of the thrust vector. Review the code in `03c_vectors.py` for hints.
+   length of the thrust vector. Review the code in `03_vectors.py` for hints.
 
 
 ### Things to try

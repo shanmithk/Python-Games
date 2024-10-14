@@ -5,7 +5,7 @@ updated version of the Gravity Bounce program.
 
 ## Assignment
 
-1. Copy `examples/02c_gravity_bounce_obj.py` into this directory.
+1. Copy `03_gravity_bounce_obj.py` into this directory.
 2. Review the program and try to understand how it works.
 3. Change the program so that the player's initial velocity and position are set
    in the initializer to the `Player` class.

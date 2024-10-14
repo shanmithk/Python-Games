@@ -27,6 +27,7 @@ running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            
             running = False
          
     # Calculate the spring force, which is the force that pulls the square back
