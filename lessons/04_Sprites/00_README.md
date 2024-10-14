@@ -14,22 +14,23 @@ groups of sprites that we can update and draw all at once.
 
 The important parts of Sprites are: 
 
-* **Image**: The image that represents the sprite.
+* **Image**: The image that represents what the sprite looks like.
 * **Rect**: The rectangle that defines the position and size of the sprite.
 * **Group**: A collection of sprites that can be updated and drawn together.
 
-In this lesson we will compare two program, one that uses a sprite and one that
+In this lesson we will compare two program, one that uses sprites and one that
 does not. 
 
 ## Program 1: No Sprite
 
 Our first program is Object Oriented, but does not use Sprites. Open and
-run `examples/05a_boring_asteroids.py`. The left and right arrows will turn the 
+run `01_boring_asteroids.py`. The left and right arrows will turn the 
 ship, and the space bar will fire a bullet.
 
 Here is our code for the spaceship:
 
 ```python
+class Spaceship:
     def __init__(self, settings):
         self.settings = settings
         self.position = pygame.Vector2(self.settings.width // 2, self.settings.height // 2)
@@ -81,12 +82,12 @@ When we `run()` the game, the `Game.draw()` method will draw the spaceship and
 the projectiles. The `Spaceship.draw()` method will draw the spaceship as a
 triangle.
 
-You should review the code in `examples/05a_boring_asteroids.py` to see how the
+You should review the code in `01_boring_asteroids.py` to see how the
 spaceship and projectiles are created and updated.
 
 ## Program 2: Using Sprites
 
-Now look at `examples/05b_boring_asteroids_sprite.py`. This program uses a `Sprite` class to
+Now look at `02_boring_asteroids_sprite.py`. This program uses a `Sprite` class to
 represent the spaceship and the projectiles. The `Sprite` class is a subclass of
 `pygame.sprite.Sprite` and has an `image` and a `rect` attribute. The `image`
 attribute is the image that represents the sprite, and the `rect` attribute is a
@@ -162,8 +163,7 @@ need to call the `draw()` method of the spaceship and the projectiles in the
 
 ## Assignment 1
 
-1. Copy the `examples/05b_boring_asteroids_sprite.py` program to a new file in
-   this directoty.
+1. Open `02_boring_asteroids_sprite.py` 
 2. Modify the `Spaceship` class so that the spaceship can move forward when the
    up arrow key is pressed. The spaceship should move in the direction it is
    facing. You can use the `pygame.Vector2` class to represent the position and
@@ -190,14 +190,13 @@ Make seperate functions for each of the things you are updating in your spaceshi
 
 Add some images to the spaceship and the projectiles. 
 
-
 1. First set the assets directory, in code at the top of your file.
 
 ```python
 from pathlib import Path
 
 
-assets = Path(__file__).parent.parent.parent / "examples" / "assets"
+assets = Path(__file__).parent / "images"
 
 ```
 

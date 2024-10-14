@@ -5,7 +5,7 @@
 The program `03_vectors.py` is a simple program that demonstrates how
 to use vectors to move an object around the screen.
 
-![Vector Example](99_images/vector_example.png)
+![Vector Example](images/vector_example.png)
 
 You can move the green line around the player with the left and right arrow
 keys. The up and down arrow keys will make the line longer or shorter. When you
@@ -36,19 +36,30 @@ velocity.
 
 ## Assignment 1
 
-1. Copy `04_gravity_bounce_vec.py` into this directory.
-2. Add drag to the program, like we did in a earlier assignment, but use a
+1. Open `04_gravity_bounce_vec.py` 
+2. Add drag to the program, like we did in lesson 01, but use a
    vector to represent the drag. Subtract the drag vector from the player's
    velocity each time step to make the player slow down. 
 
-Your drag can be configured with a scalar value ( a float ) is turned into a
-vectorin the Payer class initializer, or in the Game class.  Be sure to use the
-drag vector to modify the player's velocity in the appropriate method. 
+Your drag can be configured with a scalar value ( a float ) that is turned into
+a vector in the Player class initializer, or in the Game class.  Be sure to use
+the drag vector to modify the player's velocity in the appropriate method. 
+
+Remember that drag works a lot like thrust: it is a vector that you subtract 
+from the player's velocity. The drag vector should point in the opposite direction
+of the player's velocity, and its magnitude should be proportional to the player's
+velocity.
 
 If you want a more sophisticated, realistic drag, you can make the drag vector
 proportional to the square of the player's velocity. This is a simple model of
 air resistance, which is proportional to the square of the velocity.
 
+Hints:
+* The easiest drag vector is just the negative of the player's velocity, divided
+  by a scalar value. The negative will make it point in the opposite direction
+  of the player's velocity, and the scalar value will determine how strong the
+  drag is. So you might use something like `drag = -velocity * 0.1` to make the
+  drag 10% of the player's velocity.
 
 ## Assignment 2
 
@@ -58,9 +69,12 @@ space bar. This will work just like the drag vector, except you will add the
 thrust vector instead of subtract it, and you will add the thrust vector only
 when the player jumps, rather than subtracting a little bit every time step. 
 
-1. Add a thrust vector to the player class. for now, just make the the thrust
+While drag is usually in the opposite direction of the player's velocity, thrust
+can be in any direction, since thrust is how the play moves where it wants to. 
+
+1. Add a thrust vector to the player class. For now, just make the the thrust
    vector point up. 
-2. Remove the logic that causes continuoys jumping. After the player touches the
+2. Remove the logic that causes continuous jumping. After the player touches the
    ground, the player should stop and not bounce. 
 3. Add a method to the Player, `update_input(self)` that will read the keys.
    Call this method along with the other update functions in `update()` If the
@@ -76,12 +90,10 @@ when the player jumps, rather than subtracting a little bit every time step.
 ## Assignment 3
 
 Let's update the program to allow the user to jump in any direction. For this,
-we will use the example from   `03_vectors.py`. In the example
+we will use the example from  `03_vectors.py`. In the example
 program, the player moves along the green line when the space bar is pressed.
 Instead of moving along the line, we will add a thrust vector to the player's
-velocity when the space bar is pressed. Adding thrust will work just like drag,
-except that you will add the thrust vector to the player's velocity instead of
-subtracting it.
+velocity when the space bar is pressed.
 
 1. First, copy your existing gravity bounce program to a new file, so you can
    keep your existing work.
@@ -93,6 +105,12 @@ subtracting it.
    direction of the thrust vector, and the up and down arrow keys to change the
    length of the thrust vector. Review the code in `03_vectors.py` for hints.
 
+So, for this progam , the player can move the green line around, just like in
+the `03_vectors.py` program, but when the player hits the space bar, the player
+will move in the direction of the green line, with a velocity proportional to
+the length of the green line. The player should continue moving untill stopped
+by drag and gravity. 
+
 
 ### Things to try
 
@@ -103,11 +121,14 @@ and increase the length of the line to make it visible.
 
 ## Assignment 4
 
-Let's turn our gravity jumper into a space game. The force of gravity is, from Newton's Law of Gravitation:
+Let's turn our gravity jumper into a space game. The force of gravity is, from
+Newton's Law of Gravitation:
 
 ![Gravitation](images/gravitation.png)
 
-Where `F` is the force of gravity, `G` is the gravitational constant, `m_1` and `m_2` are the masses of the two objects, and `r` is the distance between the two objects. 
+Where `F` is the force of gravity, `G` is the gravitational constant, `m_1` and
+`m_2` are the masses of the two objects, and `r` is the distance between the two
+objects. 
 
 Whew! That might look complicated ... but for us, only one part of this equation
 is important: the force of gravity is proportional to `1/r^2`. This means that
@@ -150,5 +171,4 @@ print(v_scaled)
     draw the planet, and be sure to call it from `Game.run()`
 5. Make the thrust vector point in the right direction for a spaceship, so 
    the spaceship move in the opposite direction of the thrust vector.
-
 
