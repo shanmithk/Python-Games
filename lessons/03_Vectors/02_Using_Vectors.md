@@ -31,7 +31,8 @@ After experimenting with the program, read the cod to figure out how it works.
 
 The program `04_gravity_bounce_vec.py` is an update to the gravity
 bounce program that uses vectors to represent the player's position and
-velocity.
+velocity. Open it and compare it to the previous gravity bounce program to see
+how vectors can simplify the code.
 
 
 ## Assignment 1

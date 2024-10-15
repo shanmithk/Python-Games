@@ -170,11 +170,13 @@ need to call the `draw()` method of the spaceship and the projectiles in the
    velocity of the spaceship.
 
 
-For (2), you will need to add a `velocity` attribute to the `Spaceship` class. Review
-past programs for clues. 
+For (2), you will need to add a `velocity` attribute to the `Spaceship` class.
+Review past programs for clues. Make it work like a real spaceship, where each
+time you press the up arrow key, the spaceship gets a bit more velocity in the
+direction it is facing.
 
-Make seperate functions for each of the things you are updating in your spaceship. For instance, your
-`update()` method might look like this:
+Make seperate functions for each of the things you are updating in your
+spaceship. For instance, your `update()` method might look like this:
 
 ```python
     def update(self):
@@ -184,7 +186,22 @@ Make seperate functions for each of the things you are updating in your spaceshi
         self.update_position()
 
         super().update() # Don't for get this part!
+
+
+    def update_position(self):
+        """Update the position of the spaceship."""
+        ...
+
+    def update_angle(self):
+        """Update the angle of the spaceship."""
+        ...
+    
+    def handle_input(self):
+        """Handle input from the player."""
+        ...
+
 ```
+
 
 ## Assignment 2
 

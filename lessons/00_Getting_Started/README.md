@@ -6,11 +6,11 @@ you will be building games using PyGame by reading and analysing existing Pygame
 
 ## Viewing Markdown Files
 
-First things is that this curriculum will have many lesson files that will be in
-the form of a README.md file. The '.md' extension means "Markdown", which is a
-way to format text. It's like a simple version of HTML. While you can read
-Markdown files in a text editor, they are best viewed in a Markdown viewer. If
-the first line of this file looks like 
+The first thingto know  is that this curriculum will have many lesson files that
+will be in the form of a README.md file. The '.md' extension means "Markdown",
+which is a way to format text. It's like a simple version of HTML. While you can
+read Markdown files in a text editor, they are best viewed in a Markdown viewer.
+If the first line of this file looks like 
 
     # Python Games: Getting Started
 
@@ -74,4 +74,4 @@ it. The other buttons will let you step through the program.
 
 ## Next Steps
 
-Now go to the next lesson, `lessons/01_Motion_and_Physics/README.md`
+Now go to the next lesson, `lessons/01_Motion_and_Physics/00_README.md`

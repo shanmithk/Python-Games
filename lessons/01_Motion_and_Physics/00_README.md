@@ -19,13 +19,13 @@ see how it works.
 
 ## Assignment 1
 
-1. Open the program `01a-move.py` 
+1. Open the program `01-move.py` 
 2. Run the program and see what it does. Use the arrow keys to move the square
    around the screen.
 3. Read the code and try to understand how it works.
 4. Read the Pygame documentation for
    [pygame.draw](https://www.pygame.org/docs/ref/draw.html) and change the
-   program to draw a circle for the player in stead of a square.
+   program to draw a circle for the player instead of a square.
 5. Read the documentation for
    [pygame.key](https://www.pygame.org/docs/ref/key.html) and change the program
    to move the circle with the `W`, `A`, `S`, and `D` keys.
@@ -118,6 +118,7 @@ velocity in the direction of the collision.
 ```python
 if player.x < 0 or player.x > screen_width:
     player.v.x = -player.v.x
+
 if player.y < 0 or player.y > screen_height:
     player.v.y = -player.v.y
 ```
@@ -132,4 +133,13 @@ if player.y < 0 or player.y > screen_height:
 4. Change the program so the player's velocity is reduced by a little bit each
    time step. ( aerodynamic wind drag ) When the player's x or y velocity is
    less than 0.1, set it to zero. This will make the player slow down and stop.
-   If the Players velocity is zero, the player can jump again. 
+   If the Players velocity is zero, the player can jump again. The player
+   shoud bounce off the ground.
+
+Hints: 
+
+* Jumping up will involve setting the y velocity, and jumping left or right
+will also involve setting the x velocity.
+* You can implement drag either by subtracting off a little bit of the velocity,
+  but you will need to make sure the velocity doesn't go negative. Another way
+   to do this is to multiply the velocity by a number less than 1, like 0.99.

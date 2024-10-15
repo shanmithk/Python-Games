@@ -82,16 +82,19 @@ class Player:
         self.width = settings.player_width
         self.height = settings.player_height
     
+        # Vector for our jump velocity, which is just up
         self.v_jump = pygame.Vector2(0, -settings.player_jump_velocity)
 
+        # Player position
         self.pos = pygame.Vector2(settings.player_start_x, 
                                   settings.player_start_y if settings.player_start_y is not None else settings.height - self.height)
         
+        # Player's velocity
         self.vel = pygame.Vector2(settings.player_v_x, settings.player_v_y)  # Velocity vector
 
 
 
-    # Direction functions. IMPORTANT! Using these functions ) isn't really
+    # Direction functions. IMPORTANT! Using these functions isn't really
     # necessary, but it makes the code more readable. You could just use
     # self.vel.x < 0, but writing "self.going_left()" is a lot easier to read and
     # understand, it makes the code self-documenting. 

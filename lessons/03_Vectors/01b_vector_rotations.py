@@ -2,7 +2,7 @@
 import pygame
 import math
 
-from vector20 import Vector20Factory
+from jtlgames.vector20 import Vector20Factory
 
 # Initialize pygame
 pygame.init()
