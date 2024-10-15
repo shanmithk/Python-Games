@@ -27,9 +27,26 @@ assets = Path(__file__).parent / 'assets'
 background = pygame.image.load(assets/'background.png')
 ```
 
+See ``06_Surfaces/01_tile_background.py`` for an example of how to tile the background image.
+
 This code will open the the 'assets' director in the same parent directory as
 the file that is being executed.  When using the Path() object, the `/` operator
 has a different meaning than the normal division operator.  Instead, it is used
 to join the path with a string, so it is like writing `"assets" + "/" + "background.png"`. 
 
 
+## 2. Add the Bird
+
+Add the bird. Pressing the space bar should give the bird a small upward
+velocity, but gravity should be pulling the bird down.
+
+Try to animate the bird by swaping the image of the bird between two or three of
+the bird images in the `images/` directory
+
+## 2. Add collisions
+
+Implement collisions so the game ends when the bird hits the pipes.
+
+## 3. Scoring
+
+Add a score that increases as the bird passes through the pipes.
