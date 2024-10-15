@@ -42,8 +42,8 @@ class Bird(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
 
         self.rect = self.image.get_rect()
-        self.rect[0] = SCREEN_WIDHT / 6
-        self.rect[1] = SCREEN_HEIGHT / 2
+        self.rect[0] = SCREEN_WIDHT / 6 # .rect[0] is the x position
+        self.rect[1] = SCREEN_HEIGHT / 2 # .rect[1] is the y position
 
     def update(self):
         self.current_image = (self.current_image + 1) % 3
@@ -86,7 +86,7 @@ class Pipe(pygame.sprite.Sprite):
 
 
     def update(self):
-        self.rect[0] -= GAME_SPEED
+        self.rect[0] -= GAME_SPEED # Move the pipe to the left
 
         
 

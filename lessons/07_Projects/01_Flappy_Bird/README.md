@@ -11,6 +11,9 @@ First, you can review a  [web version of the game online](https://flappybird.io/
 The bird's motion is like jumping: flapping provides a small increase in upward
 velocity, while gravity is pulling the bird down. 
 
+If you'd like some serious inspiration, and some code to help you get started, we have a very nice version 
+of the game in the `examples/flappy_bird` directory.
+
 # Development Process
 
 You can create the game in whatever way you'd like, but this process may make your development smoother. 
