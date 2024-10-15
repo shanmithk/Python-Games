@@ -1,5 +1,5 @@
 import pygame
-from spritesheet import SpriteSheet
+from jtlgames.spritesheet import SpriteSheet
 from pathlib import Path
 
 images = Path(__file__).parent / 'images'

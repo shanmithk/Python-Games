@@ -3,12 +3,17 @@ from pathlib import Path
 
 class SpriteSheet(object):
     """Class to handle loading and parsing a sprite sheet image.
-
-    Attributes:
-        cellsize (tuple): The size of each cell in the sprite sheet (width, height).
-        sheet (Surface): The loaded sprite sheet image.
     """
     def __init__(self, filename, cellsize, offset=(0,0)):
+        """
+        Initializes the SpriteSheet object.
+        Args:
+            filename (str): The path to the image file containing the spritesheet.
+            cellsize (tuple): The size of each cell in the spritesheet (width, height).
+            offset (tuple, optional): The offset to start reading the spritesheet from (x, y). Defaults to (0, 0).
+        Raises:
+            FileNotFoundError: If the spritesheet image cannot be loaded.
+        """
         self.cellsize = cellsize
         
         try:
@@ -16,7 +21,7 @@ class SpriteSheet(object):
             img = pygame.image.load(filename)
             
             if offset != (0,0):
-                img = img.subsurface(pygame.Rect(offset, img.get_size()))
+                img = img.subsurface(pygame.Rect(offset, (img.get_width() - offset[0], img.get_height() - offset[1])))
                     
             try:
                 self.sheet = img.convert()
@@ -26,7 +31,7 @@ class SpriteSheet(object):
             
         except pygame.error as e:
             print(f'Unable to load spritesheet image: {filename}')
-            raise SystemExit(e)
+            raise FileNotFoundError(e)
         
     def xy_to_index(self, x, y):
         """Converts (x, y) grid position to sprite index"""

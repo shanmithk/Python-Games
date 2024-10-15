@@ -4,7 +4,7 @@
 
 import pygame
 from pathlib import Path
-from spritesheet import SpriteSheet
+from .spritesheet import SpriteSheet
 
 
 class SpriteShow:
@@ -61,25 +61,6 @@ class SpriteShow:
                     running = False
         pygame.quit()
 
-# Usage example
-if __name__ == "__main__":
-    pygame.init()
-    pygame.display.set_caption("SpriteSheet Test")
 
-    screen = pygame.display.set_mode((800, 600))
-
-    images = Path(__file__).parent / 'images'
-    file = images / '2x-obstacle-large.png'  # Replace with your actual file
-
-    if not file.exists():
-        raise FileNotFoundError(f"Error: The file {file} does not exist.")
-
-    sprite_show = SpriteShow(screen, file, (50, 100 ))
-    
-    img = sprite_show.ss.compose_horiz([0,1,2,3,4,5,6])
-    pygame.image.save(img, images/'cactus_sheet.png')
-
-
-    sprite_show.show()
     
     
