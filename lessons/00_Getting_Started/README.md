@@ -29,6 +29,9 @@ Viewing the files on the GitHub website is easy. Just vist the [GitHub Repositor
 and view the file you want. We recommend usig GitHub to view the lesson files so oyou don't
 have to switch between windows a lot in VS Code. 
 
+<div style="background-color: #e6f7ff; border-left: 5px solid #1890ff; color: black; padding: 10px; border-radius: 5px; margin: 10px 0;">
+  <strong>TL;DR:</strong> For best results, open your programs in the VSCode editor in a Codespace, but read the lesson files on GitHub.
+</div>
 
 ## Reading Code
 
