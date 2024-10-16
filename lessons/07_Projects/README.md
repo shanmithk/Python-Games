@@ -7,6 +7,15 @@ and mechanics to help you get started.
 Take these instructions as a starting point, but it's totally your game! Do what
 ever you want to make it fun and interesting.
 
+[Build Flappy Bird](01_Flappy_Bird/README.md)  
+[Build League Invaders](02_Invaders/README.md)  
+[Build Frogger](03_Frogger/README.md)  
+[Build Asteroids](04_Asteroids/README.md)  
+[Build Lunar Lander](05_Lunar_Lander/README.md)  
+[Build Tank War](06_Tank_War/README.md)  
+[Build Dino Run](07_Dino_Run/README.md)
+
+
 ## 1. Flappy Bird
 
 Guide a bird through an endless series of pipes by tapping to make it flap. The
