@@ -21,3 +21,7 @@ examples of code that you can run and learn from.
 ## Next Steps
 
 Open the file [lessons/00_Getting_Started/README.md](lessons/00_Getting_Started/README.md) to begin the lessons. 
+
+-------------------
+
+Development of The LEAGUE's curriculum is generously funded by the Itzkowitz Family Foundation. 
