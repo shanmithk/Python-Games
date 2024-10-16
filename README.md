@@ -8,15 +8,13 @@ To get started, either clone this repository to your local machine, or fork and
 create a Codespace, then open the file [lessons/00_Getting_Started/README.md](lessons/00_Getting_Started/README.md).
 This will give you an overview of the module and how to get started.
 
-There are three directories in this module that you will work in: 
+The easiest way to get started is, from the [Python-Games Github Repo](https://github.com/league-curriculum/Python-Games), 
+click on the green ![code](https://images.jointheleague.org/github/code_button_sm.png) button, then select the 'Codespaces' tab, then ![ccom](https://images.jointheleague.org/github/create_codespace_sm.png). 
+This will create a codespace for you to work in, which has a web based IDE and all the necessary tools to get started.
 
-1. `lessons` - This is where you will find the lessons and assignments for the module.
-2. `games` - The games you will create will be in this directory.
-3. `examples` - This is where you will find examples of games that you can run and learn from.
+It's easiest to read the lesson documentation on Github; just click on the link in the `Next Steps` section below, but you 
+will also see all of the documentation in your coding editor. 
 
-Start in the `lessons` directory for the first lesson, or you can try out a few of the
-games in the `games` directory. The lessons will refer to the `examples` directory for 
-examples of code that you can run and learn from.
 
 ## Next Steps
 
