@@ -18,3 +18,6 @@ Start in the `lessons` directory for the first lesson, or you can try out a few 
 games in the `games` directory. The lessons will refer to the `examples` directory for 
 examples of code that you can run and learn from.
 
+## Next Steps
+
+Open the file [lessons/00_Getting_Started/README.md](lessons/00_Getting_Started/README.md) to begin the lessons. 
