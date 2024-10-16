@@ -25,6 +25,15 @@ file you are reading now ) and right click to get the pop up menu. Then select
 The Markdown files will nearly always be called "README.md" or "00_README.md",
 but sometimes there will be Markdown files with other names. 
 
+### Another Tip for Markdown
+
+One of the easiest ways to view both  Markdown and Notebook ( ipynb ) files is
+to open it in GitHub. You can do this by going to the GitHub website and
+navigating to the file.
+
+Vist the [GitHub Repository here](https://github.com/league-curriculum/Python-Games)
+
+
 ## Reading Code
 
 There will only be a few traditional lessons in this module, and they will be
