@@ -86,11 +86,6 @@ while running:
         player_y_velocity = -player_y_velocity
 
     # If the player hits the ground, stop the player from falling.
-    # The player's position is measured from the top left corner, so the
-    # bottom of the player is player.y + settings.player_size. If the bottom of the
-    # player is greater than the height of the screen, the player is on the
-    # ground. So, set the player's y position to the bottom of the screen
-    # and stop the player from falling
     if player.bottom > settings.screen_height:
         player.bottom = settings.screen_height
         player_y_velocity = 0
