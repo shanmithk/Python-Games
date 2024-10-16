@@ -1,8 +1,9 @@
 # Python Games: Getting Started
 
-[ If the first line of the file lstarts with a "#", you should open in in
-"Preview Mode". Right-click on the name of the file in the file explorer and
-select "Open Preview".]
+[ If the first line of this file starts with a "#", you are probably viewing it
+in Text mode. If you are in Visual Studio Code,  should open the file in "Preview
+Mode". Right-click on the name of the file in the file explorer and select "Open
+Preview".]
 
 Welcome to the course of The LEAGUE's Python curriculum. This module is all about games, 
 and it works a bit differently than the previous modules. Instead of learning a series of lessons, 
