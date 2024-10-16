@@ -4,9 +4,9 @@ If you have completed the League's [Python Apprentice](
 https://python-apprentice.jointheleague.org/) class, you are ready to continue
 your Python journey by learning to program games. 
 
-To get started, either clone this repository to your local machine, or create a
-Codespace, then open the file `lessons/00_Getting_Started/README.md`. This will
-give you an overview of the module and how to get started.
+To get started, either clone this repository to your local machine, or fork and
+create a Codespace, then open the file `lessons/00_Getting_Started/README.md`.
+This will give you an overview of the module and how to get started.
 
 There are three directories in this module that you will work in: 
 
