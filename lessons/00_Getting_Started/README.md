@@ -76,4 +76,4 @@ it. The other buttons will let you step through the program.
 Don't forget about the [Pygame Documentation](https://www.pygame.org/docs/index.html). Your programs will
 get better the more you know about Pygame.
 
-Now go to the next lesson, [lessons/01_Motion_and_Physics/01_Motion_and_Physics.ipynb](../01_Motion_and_Physics/01_Motion_and_Physics.ipynynb) to start learning how to move things around the screen. 
+Now go to the next lesson, [lessons/01_Motion_and_Physics/01_Motion_and_Physics.ipynb](../01_Motion_and_Physics/01_Motion_and_Physics.ipynb) to start learning how to move things around the screen. 
