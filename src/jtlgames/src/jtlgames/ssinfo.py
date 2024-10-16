@@ -127,7 +127,7 @@ def main(args):
 
     pygame.init()
     pygame.display.set_caption("SpriteSheet Test")
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((600, 600))
 
     sprite_show = SpriteShow(screen, file, (args.width, args.height), (args.offset_x, args.offset_y))
     
