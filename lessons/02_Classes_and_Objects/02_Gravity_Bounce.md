@@ -15,3 +15,8 @@ updated version of the Gravity Bounce program.
 
 When you are done, your program should have two player objects ( but only one
 Player class!), of different colors, bouncing around in different trajectories. 
+
+## Next Steps
+
+1. Check in your code!
+2. Read the [Pygame Documentation](https://www.pygame.org/docs/index.html).

@@ -71,7 +71,9 @@ like:
 The red square will stop your program, and the green reverse circle wil restart
 it. The other buttons will let you step through the program.
 
-
 ## Next Steps
+
+Don't forget about the [Pygame Documentation](https://www.pygame.org/docs/index.html). Your programs will
+get better the more you know about Pygame.
 
 Now go to the next lesson, `lessons/01_Motion_and_Physics/00_README.md`

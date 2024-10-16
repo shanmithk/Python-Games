@@ -143,3 +143,12 @@ will also involve setting the x velocity.
 * You can implement drag either by subtracting off a little bit of the velocity,
   but you will need to make sure the velocity doesn't go negative. Another way
    to do this is to multiply the velocity by a number less than 1, like 0.99.
+
+
+## Next Steps
+
+First, check in your code! You should check in ( commit ) and push your code
+regularly. 
+
+Second, don't forget about the [Pygame Documentation](https://www.pygame.org/docs/index.html). Your programs will
+get better the more you know about Pygame.
