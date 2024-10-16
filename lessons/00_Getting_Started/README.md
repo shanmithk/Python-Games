@@ -1,6 +1,10 @@
 # Python Games: Getting Started
 
-Welcome to the second module of The LEAGUE's Python curriculum. This module is all about games, 
+[ If the first line of the file lstarts with a "#", you should open in in
+"Preview Mode". Right-click on the name of the file in the file explorer and
+select "Open Preview".]
+
+Welcome to the course of The LEAGUE's Python curriculum. This module is all about games, 
 and it works a bit differently than the previous modules. Instead of learning a series of lessons, 
 you will be building games using PyGame by reading and analysing existing Pygame programs. 
 
@@ -41,10 +45,38 @@ If you like extra help, you can also find many tutorials on the web. One of the
 best video tutorials is [The Ultimate Introduction to PyGame](https://youtu.be/AY9MnQ4x3zk?si=HFtptJF9MVeq-hFO)
 
 
-## Opening Your Virtual Screen
+## Open a Virtual Screen on the Web
 
-Since you will likely be working in a Codespace, you will need to open a virtual
-screen to run your Pygame programs. To do this [follow these instuctions](https://curriculum.jointheleague.org/howto/python_codespaces.html#open-a-virtual-screen-on-the-web)
+If you started your editor as a Codespace on Github, that is, you clicked
+on a button like <img style="vertical-align:middle" src="https://images.jointheleague.org/vscode/create_codespace.png" height="25px" > 
+to start your editor, then you need to follow these steps to open a virtual screen. 
+Your Codespace is running your code in a data center far away, and it doesn't have a screen,
+so if you want to see your program output, you have to create a virtual screen. 
+
+In the bottom pane of the VSCode window, click on the "PORTS" tab. ( If you don't see a 
+"PORTS" tab, you probably can skip this step. )
+
+<center><img src="https://images.jointheleague.org/module-navigation/ports_pane.png" width="600px"></center>
+
+Hover over the "Forwarded Address" for port 6080. You will see a small icon
+that looks like  <img style="vertical-align:middle" src="https://images.jointheleague.org/vscode/browser_pane.png" height="25px" >. Click on it. This will
+open a new browser window with a "noVNC" logo. 
+
+You might need to drag the browser window to the right side of the screen. Your
+screen should look something like:
+
+<center><img src="https://images.jointheleague.org/module-navigation/browser_window.png" width="600px"></center>
+
+Click on "Connect". If it asks for a password,  enter the passwod: "code4life"
+
+Troubleshooting: if the "Simple Browser" pane takes up the whole editor area,
+try grabing the  "Simple Browser" tab and drag it to the right side of the
+window; there should be a pale-blue shadow that shows where the pane will go. If
+it looks like the browser window is not loading, try clicking the circular
+reload icon at the top of the window. 
+
+Now you have a virtual screen running. When your program writes to the screen, it will show up in this window. 
+
 
 
 ## Important Tips
