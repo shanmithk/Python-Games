@@ -4,9 +4,10 @@ Welcome to the second module of The LEAGUE's Python curriculum. This module is a
 and it works a bit differently than the previous modules. Instead of learning a series of lessons, 
 you will be building games using PyGame by reading and analysing existing Pygame programs. 
 
-## Viewing Markdown Files
+## Viewing Lesson Files
 
-The first thingto know  is that this curriculum will have many lesson files that
+
+The first thing to know  is that this curriculum will have many lesson files that
 will be in the form of a README.md file. The '.md' extension means "Markdown",
 which is a way to format text. It's like a simple version of HTML. While you can
 read Markdown files in a text editor, they are best viewed in a Markdown viewer.
