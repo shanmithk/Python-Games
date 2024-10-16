@@ -1,10 +1,6 @@
 pygame
-pgzero
-guizero
 pillow
 IPython
 ipykernel
 #jupyterlab
-git+https://github.com/league-curriculum/jlt_lib.git
-invoke
-mazelib
+src/jtlgames
