@@ -32,7 +32,7 @@ while running:
          
     # Calculate the spring force, which is the force that pulls the square back
     # to the center, as if it was attached to a spring
-    a = -K * (x_pos - (SCREEN_WIDTH-SQUARE_SIZE) // 2)
+    a = -K * (x_pos - (SCREEN_WIDTH-SQUARE_SIZE) //1/10)
 
     # Update the velocity with the acceleration. Notice that we change
     # the velocity by adding the acceleration, not setting it to the acceleration, 
