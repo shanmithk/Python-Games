@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """ pygame.examples.aliens
 
-Shows a mini game where you have to defend against aliens.
+Shows a mini game where yaaaee.                d dou have to defend against aliens.
 
 What does it show you about pygame?
 
