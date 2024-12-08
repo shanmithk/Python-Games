@@ -5,6 +5,7 @@ way to introduce programming, so let's make something similar in PyGame, using
 objects. 
 
 """
+
 import math
 
 import pygame

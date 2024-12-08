@@ -12,8 +12,8 @@ import pygame
 
 class Colors:
     """Constants for Colors"""
-    WHITE = (255, 255, 255)
-    BLACK = (0, 0, 0)
+    ORANGE = ( 255, 165,  0)
+    BLUE = (0, 0, 255)
     RED = (255, 0, 0)
 
 
@@ -22,9 +22,9 @@ class GameSettings:
     width: int = 500
     height: int = 500
     gravity: float = 0.3
-    player_start_x: int = 100
-    player_start_y: int = None
-    player_v_y: float = 0  # Initial y velocity
+    player_start_x: int = 50
+    player_start_y: int = 50
+    player_v_y: float = -50  # Initial y velocity
     player_v_x: float = 7  # Initial x velocity
     player_width: int = 20
     player_height: int = 20
@@ -59,7 +59,7 @@ class Game:
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     self.running = False
 
-            self.screen.fill(Colors.WHITE)
+            self.screen.fill(Colors.BLUE)
 
             for player in self.players:
                 player.update()
@@ -125,7 +125,7 @@ class Player:
             self.is_jumping = True
 
     def draw(self, screen):
-        pygame.draw.rect(screen, Colors.BLACK, (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(screen, Colors.ORANGE, (self.x, self.y, self.width, self.height))
 
 
 settings = GameSettings()
