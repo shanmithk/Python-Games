@@ -16,7 +16,7 @@ pygame.display.set_caption("Accelerating Red Square")
 # Square starting position
 x_pos = 20
 y_pos = (SCREEN_HEIGHT - SQUARE_SIZE) // 2
-velocity = 0
+velocity = 9
 
 # Movement direction: 1 for right, -1 for left
 direction = 1

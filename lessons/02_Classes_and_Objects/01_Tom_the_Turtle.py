@@ -48,8 +48,9 @@ class Turtle:
         self.angle = (self.angle + angle) % 360
 
 
+class Child(Turtle):
+    
 # Main loop
-
 # Initialize Pygame
 pygame.init()
 
