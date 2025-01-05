@@ -28,7 +28,8 @@ class Spaceship:
             self.angle -= 5
         if keys[pygame.K_RIGHT]:
             self.angle += 5
-
+        if keys[pygame.K_UP]:
+            self.position + 5
     def draw(self, surface):
         points = [
             pygame.Vector2(0, -self.settings.triangle_size),  # top point
@@ -68,6 +69,7 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.KEYDOWN:
+
                 if event.key == pygame.K_SPACE:
                     # Create and fire a projectile
                     new_projectile = Projectile(self.spaceship.position, self.spaceship.angle, self.settings)
