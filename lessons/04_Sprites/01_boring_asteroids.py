@@ -21,6 +21,7 @@ class Spaceship:
         self.settings = settings
         self.position = pygame.Vector2(self.settings.width // 2, self.settings.height // 2)
         self.angle = 0
+        self.direction = pygame.Vector2(0, -1).rotate(self.angle)
 
     def handle_input(self):
         keys = pygame.key.get_pressed()
@@ -29,7 +30,7 @@ class Spaceship:
         if keys[pygame.K_RIGHT]:
             self.angle += 5
         if keys[pygame.K_UP]:
-            self.position + 5
+            self.position += self.direction.rotate(self.angle) * 5
     def draw(self, surface):
         points = [
             pygame.Vector2(0, -self.settings.triangle_size),  # top point
@@ -40,6 +41,16 @@ class Spaceship:
         pygame.draw.polygon(surface, self.settings.colors['white'], rotated_points)
 
 # Projectile class to handle projectile movement and drawing
+class AlienSpaceship(Spaceship):
+    
+    def create_spaceship_image(self):
+        """Creates the spaceship shape as a surface."""
+        
+        return pygame.image.load(assets/'alien1.gif')
+
+
+
+
 class Projectile:
     def __init__(self, position, angle, settings):
         self.position = position.copy()
