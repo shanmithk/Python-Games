@@ -2,6 +2,15 @@ import pygame
 import math
 
 # Settings class to store game configuration
+
+
+pygame
+from pathlib import Path
+
+
+assets = Path(__file__).parent / "images"
+
+
 class Settings:
     def __init__(self):
         self.width = 800
@@ -46,9 +55,9 @@ class AlienSpaceship(Spaceship):
     def create_spaceship_image(self):
         """Creates the spaceship shape as a surface."""
         
-        return pygame.image.load(assets/'alien1.gif')
+        return pygame.image.load(assets/'alien2.gif')
 
-
+    
 
 
 class Projectile:

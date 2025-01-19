@@ -2,6 +2,12 @@ import pygame
 import math
 
 
+pygame  
+from pathlib import Path
+
+
+assets = Path(__file__).parent / "images"
+
 class Settings:
     """Class to store game configuration."""
 
@@ -83,7 +89,9 @@ class Spaceship(pygame.sprite.Sprite):
     # are going to handle input and update the image of the spaceship. However,
     # we also need to call the update method of the parent class, so we use
     # super().update()
+    
     def update(self):
+        
         
         keys = pygame.key.get_pressed()
 
@@ -96,6 +104,8 @@ class Spaceship(pygame.sprite.Sprite):
         if keys[pygame.K_SPACE] and self.ready_to_shoot():
             self.fire_projectile()
 
+        if keys[pygame.K_UP]:
+            self.velocity.from_polar((5,self.angle))
         self.image = pygame.transform.rotate(self.original_image, -self.angle)
 
         # Reassigning the rect because the image has changed.
@@ -112,7 +122,12 @@ class Spaceship(pygame.sprite.Sprite):
     # screen. We only need to add the sprite to a group and the group will take
     # care of drawing the sprite.
 
+class AlienSpaceship(Spaceship):
+    
+    def create_spaceship_image(self):
+        """Creates the spaceship shape as a surface."""
         
+        return pygame.image.load(assets/'alien1.gif')        
 
 class Projectile(pygame.sprite.Sprite):
     """Class to handle projectile movement and drawing."""
