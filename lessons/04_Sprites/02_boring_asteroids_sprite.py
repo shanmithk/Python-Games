@@ -1,6 +1,6 @@
 import pygame
 import math
-
+from pygame.math import Vector2
 
 pygame  
 from pathlib import Path
@@ -91,6 +91,7 @@ class Spaceship(pygame.sprite.Sprite):
     # super().update()
     
     def update(self):
+        tempVelocity = .5
         
         
         keys = pygame.key.get_pressed()
@@ -105,8 +106,20 @@ class Spaceship(pygame.sprite.Sprite):
             self.fire_projectile()
 
         if keys[pygame.K_UP]:
-            self.velocity.from_polar((5,self.angle))
+            print(self.velocity)
+            to_add =Vector2(0,0)
+            to_add.from_polar((.03, self.angle - 90))
+            self.velocity+= to_add
+            #tempVelocity = 5 + self.velocity
+            #tempVelocity += tempVelocity
+            
+            #self.velocity += (.5, 0)
         self.image = pygame.transform.rotate(self.original_image, -self.angle)
+        if keys[pygame.K_DOWN]:
+            to_add =Vector2(0,0)
+            to_add.from_polar((.03, self.angle + 90))
+            self.velocity+= to_add    
+        
 
         # Reassigning the rect because the image has changed.
         self.rect = self.image.get_rect(center=self.rect.center)
