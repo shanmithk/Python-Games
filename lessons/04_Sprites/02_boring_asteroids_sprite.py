@@ -117,7 +117,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.image = pygame.transform.rotate(self.original_image, -self.angle)
         if keys[pygame.K_DOWN]:
             to_add =Vector2(0,0)
-            to_add.from_polar((.03, self.angle + 90))
+            to_add.from_polar((1, self.angle + 90))
             self.velocity+= to_add    
         
 

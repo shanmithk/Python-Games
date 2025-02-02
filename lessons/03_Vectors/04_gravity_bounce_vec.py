@@ -154,7 +154,7 @@ class Player:
             self.vel.y = -self.vel.y # Bounce off the top. 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
-            thrust = self.vel * 0.1
+            thrust = self.vel * 1
             self.vel += thrust
         if keys[pygame.K_SPACE]:
         # If the player hits one side of the screen or the other, bounce the
@@ -162,8 +162,8 @@ class Player:
         # off the screeen, because we don't want to bounce the player if it's
         # already going away from the edge
         
-        if (self.at_left() and self.going_left() ) or ( self.at_right() and self.going_right()):
-            self.vel.x = -self.vel.x
+            if (self.at_left() and self.going_left() ) or ( self.at_right() and self.going_right()):
+             self.vel.x = -self.vel.x
             
     def update_pos(self):
         """Update the player's position based on velocity"""
