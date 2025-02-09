@@ -6,44 +6,45 @@ obstacles. The game should end when the player collides with an obstacle ...
 but it does not. It's a work in progress, and you'll have to finish it. 
 
 """
-import pygame
-import random
-from pathlib import Path
+class Setting:
+    import pygame
+    import random
+    from pathlib import Path
 
 # Initialize Pygame
-pygame.init()
+    pygame.init()
 
-images_dir = Path(__file__).parent / "images" if (Path(__file__).parent / "images").exists() else Path(__file__).parent / "assets"
+    images_dir = Path(__file__).parent / "images" if (Path(__file__).parent / "images").exists() else Path(__file__).parent / "assets"
 
-# Screen dimensions
-WIDTH, HEIGHT = 600, 300
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Dino Jump")
+    # Screen dimensions
+    WIDTH, HEIGHT = 600, 300
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Dino Jump")
 
-# Colors
-BLUE = (0, 0, 255)
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+    # Colors
+    BLUE = (0, 0, 255)
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
 
-# FPS
-FPS = 60
+    # FPS
+    FPS = 60
 
-# Player attributes
-PLAYER_SIZE = 25
+    # Player attributes
+    PLAYER_SIZE = 25
 
-player_speed = 5
+    player_speed = 5
 
-# Obstacle attributes
-OBSTACLE_WIDTH = 20
-OBSTACLE_HEIGHT = 20
-obstacle_speed = 5
+    # Obstacle attributes
+    OBSTACLE_WIDTH = 20
+    OBSTACLE_HEIGHT = 20
+    obstacle_speed = 5
 
-# Font
-font = pygame.font.SysFont(None, 36)
+    # Font
+    font = pygame.font.SysFont(None, 36)
 
 
 # Define an obstacle class
-class Obstacle(pygame.sprite.Sprite):
+class Obstacle((pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.Surface((OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
