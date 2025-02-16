@@ -6,45 +6,48 @@ obstacles. The game should end when the player collides with an obstacle ...
 but it does not. It's a work in progress, and you'll have to finish it. 
 
 """
-class Setting:
-    import pygame
-    import random
-    from pathlib import Path
+import pygame
+
+
+
+import pygame
+import random
+from pathlib import Path
 
 # Initialize Pygame
-    pygame.init()
+pygame.init()
 
-    images_dir = Path(__file__).parent / "images" if (Path(__file__).parent / "images").exists() else Path(__file__).parent / "assets"
+images_dir = Path(__file__).parent / "images" if (Path(__file__).parent / "images").exists() else Path(__file__).parent / "assets"
 
     # Screen dimensions
-    WIDTH, HEIGHT = 600, 300
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Dino Jump")
+WIDTH, HEIGHT = 600, 300
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Dino Jump")
 
     # Colors
-    BLUE = (0, 0, 255)
-    BLACK = (0, 0, 0)
-    WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
 
-    # FPS
-    FPS = 60
+# FPS
+FPS = 60
 
     # Player attributes
-    PLAYER_SIZE = 25
+PLAYER_SIZE = 25
 
-    player_speed = 5
+player_speed = 5
 
-    # Obstacle attributes
-    OBSTACLE_WIDTH = 20
-    OBSTACLE_HEIGHT = 20
-    obstacle_speed = 5
+# Obstacle attributes
+OBSTACLE_WIDTH = 20
+OBSTACLE_HEIGHT = 20
+obstacle_speed = 5
 
     # Font
-    font = pygame.font.SysFont(None, 36)
+font = pygame.font.SysFont(None, 36)
 
 
 # Define an obstacle class
-class Obstacle((pygame.sprite.Sprite):
+class Obstacle(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.Surface((OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
@@ -54,6 +57,10 @@ class Obstacle((pygame.sprite.Sprite):
         self.rect.y = HEIGHT - OBSTACLE_HEIGHT - 10
 
         self.explosion = pygame.image.load(images_dir / "explosion1.gif")
+        self.cactus = pygame.image.load(images_dir / "cactus_9.png")
+        self.image = self.cactus
+        self.image = pygame.transform.scale(self.image, (OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
+        self.rect = self.image.get_rect(center=self.rect.center)
 
     def update(self):
         self.rect.x -= obstacle_speed
@@ -74,20 +81,32 @@ class Obstacle((pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface((PLAYER_SIZE, PLAYER_SIZE))
-        self.image.fill(BLUE)
+        self.image = pygame.Surface((OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
+        self.image.fill(BLACK)
+        self.dino = pygame.image.load(images_dir / "dino_4.png")
         self.rect = self.image.get_rect()
+        self.velocity = 0
         self.rect.x = 50
         self.rect.y = HEIGHT - PLAYER_SIZE - 10
         self.speed = player_speed
-
+        self.image = self.dino
+        self.image = pygame.transform.scale(self.image, (PLAYER_SIZE, PLAYER_SIZE))
+        self.rect = self.image.get_rect(center=self.rect.center)
     def update(self):
+        
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
-            self.rect.y -= self.speed
+            
+            if HEIGHT == self.rect.bottom:
+                self.velocity = -20
+        
+
+
         if keys[pygame.K_DOWN]:
             self.rect.y += self.speed
 
+        self.rect.y += self.velocity
+        self.velocity+= 2 
         # Keep the player on screen
         if self.rect.top < 0:
             self.rect.top = 0
@@ -122,8 +141,9 @@ def game_loop():
 
     # Group for obstacles
     obstacles = pygame.sprite.Group()
-
+    playersprite = pygame.sprite.GroupSingle()
     player = Player()
+    playersprite.add(player)
 
     obstacle_count = 0
 
@@ -147,10 +167,12 @@ def game_loop():
         collider = pygame.sprite.spritecollide(player, obstacles, dokill=False)
         if collider:
             collider[0].explode()
+            pygame.kill
        
         # Draw everything
         screen.fill(WHITE)
-        pygame.draw.rect(screen, BLUE, player)
+        
+        playersprite.draw(screen)
         obstacles.draw(screen)
 
         # Display obstacle count
