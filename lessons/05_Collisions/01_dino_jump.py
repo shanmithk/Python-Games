@@ -28,7 +28,7 @@ pygame.display.set_caption("Dino Jump")
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-
+RED = (255, 0, 0)
 # FPS
 FPS = 60
 
@@ -44,6 +44,35 @@ obstacle_speed = 5
 
     # Font
 font = pygame.font.SysFont(None, 36)
+class Button:
+    def __init__(self, x, y, width, height, text, color, hover_color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.text = text
+        self.color = color
+        self.hover_color = hover_color
+        self.current_color = color
+        self.is_hovered = False
+
+    def draw(self, screen, font):
+        # Draw button rectangle
+        pygame.draw.rect(screen, self.current_color, self.rect, border_radius=12)
+        
+        # Draw text
+        text_surface = font.render(self.text, True, (0, 0, 0))
+        text_rect = text_surface.get_rect(center=self.rect.center)
+        screen.blit(text_surface, text_rect)
+
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEMOTION:
+            # Check if mouse is hovering over button
+            self.is_hovered = self.rect.collidepoint(event.pos)
+            self.current_color = self.hover_color if self.is_hovered else self.color
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.is_hovered:
+                return True
+        return False
+
 
 
 # Define an obstacle class
@@ -81,6 +110,7 @@ class Obstacle(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        
         self.image = pygame.Surface((OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
         self.image.fill(BLACK)
         self.dino = pygame.image.load(images_dir / "dino_4.png")
@@ -135,55 +165,76 @@ def add_obstacle(obstacles):
 
 # Main game loop
 def game_loop():
+    button = Button(230,200,200,100,"retry",BLUE,RED)
+    high_score = 0
     clock = pygame.time.Clock()
     game_over = False
     last_obstacle_time = pygame.time.get_ticks()
+    while True:
+        # Group for obstacles
+        obstacles = pygame.sprite.Group()
+        playersprite = pygame.sprite.GroupSingle()
+        player = Player()
+        playersprite.add(player)
 
-    # Group for obstacles
-    obstacles = pygame.sprite.Group()
-    playersprite = pygame.sprite.GroupSingle()
-    player = Player()
-    playersprite.add(player)
+        obstacle_count = 0
 
-    obstacle_count = 0
+        while not game_over:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
 
-    while not game_over:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+            # Update player
+            player.update()
 
-        # Update player
-        player.update()
+            # Add obstacles and update
+            if pygame.time.get_ticks() - last_obstacle_time > 500:
+                last_obstacle_time = pygame.time.get_ticks()
+                obstacle_count += add_obstacle(obstacles)
+            
+            obstacles.update()
 
-        # Add obstacles and update
-        if pygame.time.get_ticks() - last_obstacle_time > 500:
-            last_obstacle_time = pygame.time.get_ticks()
-            obstacle_count += add_obstacle(obstacles)
+            # Check for collisions
+            collider = pygame.sprite.spritecollide(player, obstacles, dokill=False)
+            if collider:
+                collider[0].explode()
+                game_over = True
+                # pygame.kill()
+
+            # Draw everything
+            screen.fill(WHITE)
+            
+            playersprite.draw(screen)
+            obstacles.draw(screen)
+
+            # Display obstacle count
+            obstacle_text = font.render(f"Obstacles: {obstacle_count}", True, BLACK)
+            screen.blit(obstacle_text, (10, 10))
+            if obstacle_count > high_score:
+                high_score = obstacle_count
+            high_text = font.render(f"High Score: {high_score}", True, BLACK)
+            screen.blit(high_text, (400, 10))    
+            pygame.display.update()
+            clock.tick(FPS)
+
+
+        # Game over screen
         
-        obstacles.update()
-
-        # Check for collisions
-        collider = pygame.sprite.spritecollide(player, obstacles, dokill=False)
-        if collider:
-            collider[0].explode()
-            pygame.kill
-       
-        # Draw everything
-        screen.fill(WHITE)
-        
-        playersprite.draw(screen)
-        obstacles.draw(screen)
-
-        # Display obstacle count
-        obstacle_text = font.render(f"Obstacles: {obstacle_count}", True, BLACK)
-        screen.blit(obstacle_text, (10, 10))
-
-        pygame.display.update()
-        clock.tick(FPS)
-
-    # Game over screen
-    screen.fill(WHITE)
-
+        while game_over == True:
+            screen.fill(WHITE)
+            retry_text = font.render("Game Over, try again", True, BLACK)
+            screen.blit(retry_text, (10, 10))
+            high_text = font.render(f"High Score: {high_score}", True, BLACK)
+            screen.blit(high_text, (250, 100))
+            #This is where i am adding the button
+            
+            for event in pygame.event.get():
+                is_clicked = button.handle_event(event)
+                if is_clicked:
+                    game_over = False
+            button.draw(screen, font)
+            pygame.display.update()
 if __name__ == "__main__":
     game_loop()
+    
