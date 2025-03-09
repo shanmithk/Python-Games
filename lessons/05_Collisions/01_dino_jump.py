@@ -104,6 +104,21 @@ class Obstacle(pygame.sprite.Sprite):
         self.image = self.explosion
         self.image = pygame.transform.scale(self.image, (OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
         self.rect = self.image.get_rect(center=self.rect.center)
+class Background(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        
+        self.image = pygame.image.load(images_dir / "bg.jpg")
+        self.rect = self.image.get_rect()
+        self.rect.y = 0
+        self.rect.x = 0
+        self.rect.width = WIDTH
+        self.rect.height = HEIGHT
+        self.image = pygame.transform.scale(self.image,(WIDTH, HEIGHT))
+        self.rect = self.image.get_rect(center=self.rect.center)
+
+        
+     
 
 
 # Define a player class
@@ -176,7 +191,9 @@ def game_loop():
         playersprite = pygame.sprite.GroupSingle()
         player = Player()
         playersprite.add(player)
-
+        backgroundsprite = pygame.sprite.GroupSingle()
+        background = Background()
+        backgroundsprite.add(background)
         obstacle_count = 0
 
         while not game_over:
@@ -204,7 +221,7 @@ def game_loop():
 
             # Draw everything
             screen.fill(WHITE)
-            
+            backgroundsprite.draw(screen)
             playersprite.draw(screen)
             obstacles.draw(screen)
 
