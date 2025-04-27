@@ -109,9 +109,34 @@ class Background(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(WIDTH, HEIGHT))
         self.rect = self.image.get_rect(center=self.rect.center)
 
-        
-     
+class Projectile(pygame.sprite.Sprite):        
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.Surface((OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
+        self.image.fill(BLACK)
+        self.rect = self.image.get_rect()
+        self.rect.x = WIDTH
+        self.rect.y = random.randint(5,280)
 
+        self.explosion = pygame.image.load(images_dir / "explosion1.gif")
+        self.cactus = pygame.image.load(images_dir / "asteroid1.png")
+        self.image = self.cactus
+        self.image = pygame.transform.scale(self.image, (OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
+        self.rect = self.image.get_rect(center=self.rect.center)
+
+    def update(self):
+        self.rect.x -= obstacle_speed
+        # Remove the obstacle if it goes off screen
+        if self.rect.right < 0:
+            self.kill()
+
+    def explode(self):
+        """Replace the image with an explosition image."""
+        
+        # Load the explosion image
+        self.image = self.explosion
+        self.image = pygame.transform.scale(self.image, (OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
+        self.rect = self.image.get_rect(center=self.rect.center)
 
 # Define a player class
 class Player(pygame.sprite.Sprite):
@@ -168,6 +193,19 @@ def add_obstacle(obstacles):
         obstacles.add(obstacle)
         return 1
     return 0
+def add_projectile(projectiles):
+    # random.random() returns a random float between 0 and 1, so a value
+    # of 0.25 means that there is a 25% chance of adding an obstacle. Since
+    # add_obstacle() is called every 100ms, this means that on average, an
+    # obstacle will be added every 400ms.
+    # The combination of the randomness and the time allows for random
+    # obstacles, but not too close together. 
+    
+    
+
+    projectile = Projectile()
+    projectiles.add(projectile)
+    
 
 
 # Main game loop
@@ -180,6 +218,7 @@ def game_loop():
     while True:
         # Group for obstacles
         obstacles = pygame.sprite.Group()
+        projectiles = pygame.sprite.Group()
         playersprite = pygame.sprite.GroupSingle()
         player = Player()
         playersprite.add(player)
@@ -189,6 +228,10 @@ def game_loop():
         obstacle_count = 0
 
         while not game_over:
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_SPACE]:
+                add_projectile(projectiles)
+                
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
