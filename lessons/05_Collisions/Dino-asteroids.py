@@ -125,7 +125,7 @@ class Projectile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=self.rect.center)
 
     def update(self):
-        self.rect.x -= obstacle_speed
+        self.rect.x += obstacle_speed
         # Remove the obstacle if it goes off screen
         if self.rect.right < 0:
             self.kill()
@@ -154,7 +154,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.dino
         self.image = pygame.transform.scale(self.image, (PLAYER_SIZE, PLAYER_SIZE))
         self.rect = self.image.get_rect(center=self.rect.center)
-        self.image = pygame.transform.rotate(self.image,-90)
+        #self.image = pygame.transform.rotate(self.image,-90)
     def update(self):
         
         keys = pygame.key.get_pressed()
@@ -224,6 +224,7 @@ def game_loop():
     clock = pygame.time.Clock()
     game_over = False
     last_obstacle_time = pygame.time.get_ticks()
+    projectiledelay = 0
     while True:
         # Group for obstacles
         obstacles = pygame.sprite.Group()
@@ -237,10 +238,11 @@ def game_loop():
         obstacle_count = 0
 
         while not game_over:
+            projectiledelay -= 1
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE]:
+            if keys[pygame.K_SPACE] and projectiledelay <= 0:
                 add_projectile(projectiles, player.rect.x, player.rect.y)
-                
+                projectiledelay = 50
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -259,11 +261,14 @@ def game_loop():
 
             # Check for collisions
             collider = pygame.sprite.spritecollide(player, obstacles, dokill=False)
+            for o in obstacles:
+                for p in projectiles:
+                    pygame.sprite.spritecollide(p,obstacles, dokill=False)
             if collider:
                 collider[0].explode()
                 game_over = True
                 # pygame.kill()
-
+            
             # Draw everything
             screen.fill(WHITE)
             backgroundsprite.draw(screen)
