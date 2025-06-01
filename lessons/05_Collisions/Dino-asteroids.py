@@ -261,9 +261,11 @@ def game_loop():
 
             # Check for collisions
             collider = pygame.sprite.spritecollide(player, obstacles, dokill=False)
-            for o in obstacles:
-                for p in projectiles:
-                    pygame.sprite.spritecollide(p,obstacles, dokill=False)
+            for p in projectiles:
+                collided=pygame.sprite.spritecollide(p, obstacles, dokill=False)
+                for o in collided:
+                    o.kill()
+                    p.kill()
             if collider:
                 collider[0].explode()
                 game_over = True
