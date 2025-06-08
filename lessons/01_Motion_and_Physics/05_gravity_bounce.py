@@ -18,7 +18,7 @@ class Settings:
     black: tuple = (0, 0, 0)
     red: tuple = (255, 0, 0)
     player_size: int = 20
-    gravity: int = 1
+    gravity: int = 2.5  
     jump_y_velocity: int = 30
     jump_x_velocity: int = 10
 

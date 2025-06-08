@@ -14,7 +14,7 @@ images_dir = Path(__file__).parent / "images" if (Path(__file__).parent / "image
     # Screen dimensions
 WIDTH, HEIGHT = 600, 300
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Dino Jump")
+pygame.display.set_caption("Flappy Bird")
 
     # Colors
 BLUE = (0, 0, 255)
@@ -77,8 +77,8 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect.x = WIDTH
         self.rect.y = random.randint(5,280)
 
-        self.explosion = pygame.image.load(images_dir / "explosion1.gif")
-        self.cactus = pygame.image.load(images_dir / "asteroid1.png")
+        
+        self.cactus = pygame.image.load(images_dir / "pipe-green.png")
         self.image = self.cactus
         self.image = pygame.transform.scale(self.image, (OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
         self.rect = self.image.get_rect(center=self.rect.center)
@@ -145,7 +145,7 @@ class Player(pygame.sprite.Sprite):
         
         self.image = pygame.Surface((OBSTACLE_WIDTH, OBSTACLE_HEIGHT))
         self.image.fill(BLACK)
-        self.dino = pygame.image.load(images_dir / "bluebird-midflap.")
+        self.dino = pygame.image.load(images_dir / "bluebird-midflap.png")
         self.rect = self.image.get_rect()
         self.velocity = 0
         self.rect.x = 50
@@ -158,18 +158,19 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
+        self.dino = pygame.image.load(images_dir / "bluebird-upflap.png")
+        if keys[pygame.K_SPACE]:
             
              
             self.velocity = -3
+            
+
+
         
 
-
-        if keys[pygame.K_DOWN]:
-            self.rect.y += self.speed
-
         self.rect.y += self.velocity
-        self.velocity+= .2 
+        self.velocity+= .2
+        self.dino = pygame.image.load(images_dir / "bluebird-downflap.png") 
         # Keep the player on screen
         if self.rect.top < 0:
             self.rect.top = 0
@@ -239,10 +240,8 @@ def game_loop():
 
         while not game_over:
             projectiledelay -= 1
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE] and projectiledelay <= 0:
-                add_projectile(projectiles, player.rect.x, player.rect.y)
-                projectiledelay = 50
+            
+            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
