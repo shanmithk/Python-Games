@@ -1,3 +1,4 @@
+import time
 import pygame
 
 
@@ -5,6 +6,8 @@ import pygame
 import pygame
 import random
 from pathlib import Path
+
+from games.flappy_bird.flappy import BACKGROUND, GROUND_WIDHT, SCREEN_WIDHT, Ground, get_random_pipes, is_off_screen
 
 # Initialize Pygame
 pygame.init()
@@ -36,34 +39,7 @@ obstacle_speed = 5
 
     # Font
 font = pygame.font.SysFont(None, 36)
-class Button:
-    def __init__(self, x, y, width, height, text, color, hover_color):
-        self.rect = pygame.Rect(x, y, width, height)
-        self.text = text
-        self.color = color
-        self.hover_color = hover_color
-        self.current_color = color
-        self.is_hovered = False
 
-    def draw(self, screen, font):
-        # Draw button rectangle
-        pygame.draw.rect(screen, self.current_color, self.rect, border_radius=12)
-        
-        # Draw text
-        text_surface = font.render(self.text, True, (0, 0, 0))
-        text_rect = text_surface.get_rect(center=self.rect.center)
-        screen.blit(text_surface, text_rect)
-
-    def handle_event(self, event):
-        if event.type == pygame.MOUSEMOTION:
-            # Check if mouse is hovering over button
-            self.is_hovered = self.rect.collidepoint(event.pos)
-            self.current_color = self.hover_color if self.is_hovered else self.color
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.is_hovered:
-                return True
-        return False
 
 
 
@@ -219,92 +195,104 @@ def add_projectile(projectiles, x,y):
 
 
 # Main game loop
-def game_loop():
-    button = Button(230,200,200,100,"retry",BLUE,RED)
-    high_score = 0
+def main():
+    
+    bird_group = pygame.sprite.Group()
+    bird = Bird()
+    bird_group.add(bird)
+
+    ground_group = pygame.sprite.Group()
+
+    for i in range (2):
+        ground = Ground(GROUND_WIDHT * i)
+        ground_group.add(ground)
+
+    pipe_group = pygame.sprite.Group()
+    for i in range (2):
+        pipes = get_random_pipes(SCREEN_WIDHT * i + 800)
+        pipe_group.add(pipes[0])
+        pipe_group.add(pipes[1])
+
+
     clock = pygame.time.Clock()
-    game_over = False
-    last_obstacle_time = pygame.time.get_ticks()
-    projectiledelay = 0
+
+    begin = True
+
+    while begin:
+
+        clock.tick(15)
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+            if event.type == KEYDOWN:
+                if event.key == K_SPACE or event.key == K_UP:
+                    bird.bump()
+                    pygame.mixer.music.load(wing)
+                    pygame.mixer.music.play()
+                    begin = False
+
+        screen.blit(BACKGROUND, (0, 0))
+        screen.blit(BEGIN_IMAGE, (120, 150))
+
+        if is_off_screen(ground_group.sprites()[0]):
+            ground_group.remove(ground_group.sprites()[0])
+
+            new_ground = Ground(GROUND_WIDHT - 20)
+            ground_group.add(new_ground)
+
+        bird.begin()
+        ground_group.update()
+
+        bird_group.draw(screen)
+        ground_group.draw(screen)
+
+        pygame.display.update()
+
+
     while True:
-        # Group for obstacles
-        obstacles = pygame.sprite.Group()
-        projectiles = pygame.sprite.Group()
-        playersprite = pygame.sprite.GroupSingle()
-        player = Player()
-        playersprite.add(player)
-        backgroundsprite = pygame.sprite.GroupSingle()
-        background = Background()
-        backgroundsprite.add(background)
-        obstacle_count = 0
 
-        while not game_over:
-            projectiledelay -= 1
-            
-            
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
+        clock.tick(15)
 
-            # Update player
-            player.update()
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+            if event.type == KEYDOWN:
+                if event.key == K_SPACE or event.key == K_UP:
+                    bird.bump()
+                    
 
-            # Add obstacles and update
-            if pygame.time.get_ticks() - last_obstacle_time > 500:
-                last_obstacle_time = pygame.time.get_ticks()
-                obstacle_count += add_obstacle(obstacles)
-            
-            obstacles.update()
-            projectiles.update()
+        screen.blit(BACKGROUND, (0, 0))
 
-            # Check for collisions
-            collider = pygame.sprite.spritecollide(player, obstacles, dokill=False)
-            for p in projectiles:
-                collided=pygame.sprite.spritecollide(p, obstacles, dokill=False)
-                for o in collided:
-                    o.kill()
-                    p.kill()
-            if collider:
-                collider[0].explode()
-                game_over = True
-                # pygame.kill()
-            
-            # Draw everything
-            screen.fill(WHITE)
-            backgroundsprite.draw(screen)
-            playersprite.draw(screen)
-            obstacles.draw(screen)
-            projectiles.draw(screen)
+        if is_off_screen(ground_group.sprites()[0]):
+            ground_group.remove(ground_group.sprites()[0])
 
-            # Display obstacle count
-            # obstacle_text = font.render(f"Obstacles: {obstacle_count}", True, BLACK)
-            # screen.blit(obstacle_text, (10, 10))
-            # if obstacle_count > high_score:
-            #     high_score = obstacle_count
-            # high_text = font.render(f"High Score: {high_score}", True, BLACK)
-            # screen.blit(high_text, (400, 10))    
-            
-            
-            pygame.display.update()
-            clock.tick(FPS)
+            new_ground = Ground(GROUND_WIDHT - 20)
+            ground_group.add(new_ground)
 
+        if is_off_screen(pipe_group.sprites()[0]):
+            pipe_group.remove(pipe_group.sprites()[0])
+            pipe_group.remove(pipe_group.sprites()[0])
 
-        # Game over screen
-        
-        while game_over == True:
-            screen.fill(WHITE)
-            retry_text = font.render("Game Over, try again", True, BLACK)
-            screen.blit(retry_text, (10, 10))
-            high_text = font.render(f"High Score: {high_score}", True, BLACK)
-            screen.blit(high_text, (250, 100))
-            #This is where i am adding the button
+            pipes = get_random_pipes(SCREEN_WIDHT * 2)
+
+            pipe_group.add(pipes[0])
+            pipe_group.add(pipes[1])
+
+        bird_group.update()
+        ground_group.update()
+        pipe_group.update()
+
+        bird_group.draw(screen)
+        pipe_group.draw(screen)
+        ground_group.draw(screen)
+
+        pygame.display.update()
+
+        if (pygame.sprite.groupcollide(bird_group, ground_group, False, False, pygame.sprite.collide_mask) or
+                pygame.sprite.groupcollide(bird_group, pipe_group, False, False, pygame.sprite.collide_mask)):
             
-            for event in pygame.event.get():
-                is_clicked = button.handle_event(event)
-                if is_clicked:
-                    game_over = False
-            button.draw(screen, font)
-            pygame.display.update()
-if __name__ == "__main__":
-    game_loop()
+            time.sleep(1)
+            break
+while True:
+    main()
