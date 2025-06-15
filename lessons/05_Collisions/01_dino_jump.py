@@ -1,13 +1,13 @@
 """
 Dino Jump
-
+ 
 Use the arrow keys to move the blue square up and down to avoid the black
 obstacles. The game should end when the player collides with an obstacle ...
 but it does not. It's a work in progress, and you'll have to finish it. 
 
 """
 import pygame
-
+ 
 
 
 import pygame
@@ -140,10 +140,10 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_SPACE]:
             
             if HEIGHT == self.rect.bottom:
-                self.velocity = -20
+                self.velocity = -30
         
 
 
@@ -151,7 +151,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.y += self.speed
 
         self.rect.y += self.velocity
-        self.velocity+= 2 
+        self.velocity += 2.5 
         # Keep the player on screen
         if self.rect.top < 0:
             self.rect.top = 0
