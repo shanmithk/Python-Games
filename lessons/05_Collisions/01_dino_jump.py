@@ -15,7 +15,7 @@ import random
 from pathlib import Path
 
 # Initialize Pygame
-pygame.init()
+pygame.init() 
 
 images_dir = Path(__file__).parent / "images" if (Path(__file__).parent / "images").exists() else Path(__file__).parent / "assets"
 

@@ -20,7 +20,7 @@ pygame.display.set_caption("Dino Jump")
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-RED = (255, 0, 0)
+RED = (255, 0, 0) 
 # FPS
 FPS = 60
 
@@ -232,6 +232,7 @@ def game_loop():
         playersprite = pygame.sprite.GroupSingle()
         player = Player()
         playersprite.add(player)
+    
         backgroundsprite = pygame.sprite.GroupSingle()
         background = Background()
         backgroundsprite.add(background)
